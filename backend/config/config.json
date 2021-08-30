@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "souadoc",
+    "password": "souadocp7",
+    "database": "groupomania",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "souadoc",
+    "password": "souadocp7",
+    "database": "groupomania",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "souadoc",
+    "password": "souadocp7",
+    "database": "groupomania",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
