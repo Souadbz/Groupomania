@@ -1,10 +1,11 @@
-/*** importer le modèle like ***/
-const Like = require('../models/like');
-
+/*** importer mysql ***/
+var mysql = require("mysql2");
+/*** importer les modèles ***/
+const models = require('../models');
 /***  Création  d'un like ***/
 exports.createLike = (req, res, next) => {
     /**** créer le j'aime ***/
-    Like.create({
+    models.Like.create({
         userId: req.user.id,
         post_id: req.params.id,
         liked: req.body.liked
@@ -22,7 +23,7 @@ exports.createLike = (req, res, next) => {
 /*** Suppression d'un like ***/
 exports.deleteLike = (req, res, next) => {
     /*** supprimer le like ***/
-    Like.destroy({
+    models.Like.destroy({
         where: {
             userId: req.user.id,
             post_id: req.params.id
@@ -40,7 +41,7 @@ exports.deleteLike = (req, res, next) => {
 /*** Affichage des likes ***/
 exports.getLikes = (req, res, next) => {
 
-    const like = Like.findOne({
+    const like = models.Like.findOne({
         where: {
             post_id: req.params.id,
             userId: req.user.id

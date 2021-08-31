@@ -1,12 +1,11 @@
 /** d'importer le package 'file system' de Node pour accéder aux differentes opérations liées aux systèmes de fichiers
  *  ainsi on peut gérer les téléchargements et suppressions d'images ***/
 const fs = require('fs');
-/*** importer le modèle post ***/
-const Post = require('../models/post');
-/*** importer le modèle like ***/
-const Like = require('../models/like');
-/*** importer le modèle comment ***/
-const Comment = require('../models/comment');
+var mysql = require("mysql2");
+/*** importer les modèles ***/
+const models = require('../models');
+
+
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
     /*** l'utilisation de l'objet postObject avec l'operateur ternaire ou conditionnel pour voir si req.file existe ou pas */
@@ -18,7 +17,7 @@ exports.createPost = (req, res, next) => {
         ...JSON.parse(req.body.post)
     }
     /*** créer le post ***/
-    Post.create({
+    models.Post.create({
         ...postObject,
         userId: req.user.id,
         date_post: req.user.date_post,
@@ -37,7 +36,7 @@ exports.createPost = (req, res, next) => {
 /*** Modifier un post ***/
 exports.updatePost = (req, res, next) => {
     /*** on récupére id  ***/
-    const post = Post.findOne({
+    const post = models.Post.findOne({
         where: {
             id: req.params.id
         }
@@ -86,7 +85,7 @@ exports.updatePost = (req, res, next) => {
 /*** Supprimer un post ***/
 exports.deletePost = (req, res, next) => {
     /*** on récupére id  ***/
-    const post = Post.findOne({
+    const post = models.Post.findOne({
         where: {
             id: req.params.id
         }
@@ -107,19 +106,19 @@ exports.deletePost = (req, res, next) => {
         });
     }
     /*** supprimer le post ***/
-    Post.destroy({
+    models.Post.destroy({
         where: {
             id: req.params.id
         }
     })
     /*** supprimer les likes du post ***/
-    Like.destroy({
+    models.Like.destroy({
         where: {
             post_id: req.params.id
         }
     })
     /*** supprimer les commentaires du post***/
-    Comment.destroy({
+    models.Comment.destroy({
         where: {
             post_id: req.params.id
         }
@@ -138,7 +137,7 @@ exports.deletePost = (req, res, next) => {
 /* Afficher un seul message */
 exports.getOnePost = (req, res, next) => {
     /*** on récupére id du post depuis la base de données ***/
-    const post = Post.findOne({
+    const post = models.Post.findOne({
         where: {
             id: req.params.id
         }
@@ -160,7 +159,7 @@ exports.getOnePost = (req, res, next) => {
 /***  Afficher les posts ***/
 exports.getAllPosts = (req, res, next) => {
     /*** on récupère tout les posts ***/
-    const posts = Post.findAll();
+    const posts = models.Post.findAll();
     /*** si tout est ok ***/
     res.status(200).json(posts)
     /*** sinon on envoie une erreur ***/

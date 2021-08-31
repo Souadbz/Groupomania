@@ -1,10 +1,12 @@
-/*** importer le modèle comment ***/
-const Comment = require('../models/comment');
+/*** importer mysql ***/
+var mysql = require("mysql2");
+/*** importer les modèles ***/
+const models = require('../models');
 
 /***Création  d'un commentaire ***/
 exports.createComment = (req, res, next) => {
     /**** créer le commentaire ***/
-    Comment.create({
+    models.Comment.create({
         userId: req.user.id,
         post_id: req.params.id,
         date_post: req.body.date_post,
@@ -23,7 +25,7 @@ exports.createComment = (req, res, next) => {
 /*** Suppression d'un commentaire ***/
 exports.deleteComment = (req, res, next) => {
     /*** récupérer id du commentaire ***/
-    const comment = Comment.findOne({
+    const comment = models.Comment.findOne({
         where: {
             id: req.body.id
         }
@@ -35,7 +37,7 @@ exports.deleteComment = (req, res, next) => {
         })
     }
     /*** supprimer le post ***/
-    Comment.destroy({
+    models.Comment.destroy({
         where: {
             userId: req.user.id,
             id: req.body.id
@@ -54,7 +56,7 @@ exports.deleteComment = (req, res, next) => {
 /*** Affichage  des commentaires ***/
 exports.getComments = (req, res, next) => {
     /*** on récupère les commentaires ***/
-    const comments = Comment.findAll({
+    const comments = models.Comment.findAll({
         where: {
             post_id: req.params.id
         }
