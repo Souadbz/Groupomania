@@ -10,13 +10,13 @@ const likeCtrl = require('../controllers/like');
 
 
 /*** Requête POST pour créer un nouveau like***/
-router.post('/post/:id/like', auth, likeCtrl.createLike);
+router.post('/posts/:id/like', auth, likeCtrl.createLike);
 
 /*** Requête DELETE pour supprimer un like posté ***/
-router.delete('/post/:id/like', auth, likeCtrl.deleteLike);
+router.delete('/posts/:id/like', auth, likeCtrl.deleteLike);
 
 /*** Requête GET pour récupérer les likes  ***/
-router.get('/post/:id/like', auth, likeCtrl.getLikes);
+router.get('/posts/:id/like', auth, likeCtrl.getLikes);
 
 /*** exporter le router ***/
 module.exports = router;

@@ -36,10 +36,10 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 /*** les routes attendues par le frontend ***/
 //app.use('/profile/', userRoutes);
-app.use(userRoutes);
-app.use(postRoutes);
-app.use(likeRoutes);
-app.use(commentRoutes);
+app.use('/api', userRoutes);
+app.use('/api', postRoutes);
+app.use('/api', likeRoutes);
+app.use('/api', commentRoutes);
 
 /*** exporter notre application pour qu'on puisse y accéder dans les autres fichiers de notre projet ***/
 module.exports = app;

@@ -8,13 +8,13 @@ const auth = require('../middleware/auth');
 const commentCtrl = require('../controllers/comment');
 
 /*** Requête POST pour créer un nouveau commentaire ***/
-router.post('/post/:id/comment', auth, commentCtrl.createComment);
+router.post('/posts/:id/comment', auth, commentCtrl.createComment);
 
 /*** Requête DELETE pour supprimer un commentaire posté ***/
-router.delete('/post/:id/comment', auth, commentCtrl.deleteComment);
+router.delete('/posts/:id/comment', auth, commentCtrl.deleteComment);
 
 /*** Requête GET pour récupérer les commentaires ***/
-router.get('/post/:id/comments', auth, commentCtrl.getComments);
+router.get('/posts/:id/comment', auth, commentCtrl.getComments);
 
 /*** exporter le router ***/
 module.exports = router;

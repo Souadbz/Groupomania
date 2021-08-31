@@ -13,15 +13,15 @@ const userCtrl = require('../controllers/user');
 /*** les routes d'authentification ***/
 
 /*** créer et enregister un nouvel utilisateur ***/
-router.post('api/auth/signup', multer, userCtrl.signup);
+router.post('/auth/signup', multer, userCtrl.signup);
 /*** la connection d'un utilisateur ***/
-router.post('api/auth/login', userCtrl.login);
+router.post('/auth/login', userCtrl.login);
 /*** récupérer le profile ***/
-router.get('/users/profile', auth, multer, userCtrl.getProfile);
+router.get('/users/:id', auth, multer, userCtrl.getProfile);
 /*** modifier le profile ***/
-router.put('/users/profile', auth, multer, userCtrl.updateProfile);
+router.put('/users/:id', auth, multer, userCtrl.updateProfile);
 /*** supprimer le profile ***/
-router.delete('/users/profile', auth, multer, userCtrl.deleteProfile);
+router.delete('/users/:id', auth, multer, userCtrl.deleteProfile);
 
 
 /*** exporter le router ***/

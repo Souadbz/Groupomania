@@ -11,19 +11,19 @@ const multer = require('../middleware/multer-config');
 
 
 /*** Requête POST pour poster un nouveau post***/
-router.post("/post", auth, multer, postCtrl.createPost);
+router.post("/posts", auth, multer, postCtrl.createPost);
 
 /*** Requête PUT pour modifier un posté ***/
-router.put("/post/:id", auth, multer, postCtrl.updatePost);
+router.put("/posts/:id", auth, multer, postCtrl.updatePost);
 
 /*** Requête DELETE pour supprimer un post ***/
-router.delete("/post/:id", auth, multer, postCtrl.deletePost);
+router.delete("/posts/:id", auth, multer, postCtrl.deletePost);
 
 /*** Requête GET pour afficher tous les posts ***/
 router.get("/posts", auth, postCtrl.getAllPosts);
 
 /*** Requête GET pour afficher un post en particulier ***/
-router.get("/post/:id", auth, postCtrl.getOnePost);
+router.get("/posts/:id", auth, postCtrl.getOnePost);
 
 /*** exporter le router ***/
 module.exports = router;

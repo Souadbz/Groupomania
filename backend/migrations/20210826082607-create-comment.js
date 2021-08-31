@@ -9,15 +9,27 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       post_id: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Posts',
+          key: 'id'
+        }
       },
       date_post: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
