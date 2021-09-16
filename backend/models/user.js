@@ -2,15 +2,20 @@
 const {
   Model
 } = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     static associate(models) {
+      models.User.belongsTo(models.Post, {
+
+      });
       models.User.hasMany(models.Post);
     }
   };
   User.init({
-    //imageUrl: DataTypes.STRING,
+    imageUrl: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,

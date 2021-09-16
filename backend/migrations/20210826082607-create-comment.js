@@ -16,7 +16,7 @@ module.exports = {
           key: 'id'
         }
       },
-      post_id: {
+      postId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -24,20 +24,19 @@ module.exports = {
           key: 'id'
         }
       },
-      date_post: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       content: {
         allowNull: false,
         type: Sequelize.STRING
       },
+      imageUrl: {
+        type: Sequelize.STRING
+      },
       createdAt: {
-        allowNull: false,
+        //allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.DATE
       }
     });

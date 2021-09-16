@@ -33,9 +33,9 @@ app.use(bodyParser.json());
 /*** création d'un middleware pour indiquer à Express qu'il faut gérer la ressource images de manière statique 
 (un sous-répertoire de notre répertoire de base, __dirname:nom du dossier ) à chaque fois qu'elle reçoit une requête vers la route /images ***/
 app.use('/images', express.static(path.join(__dirname, 'images')));
-
+app.use(express.json());
 /*** les routes attendues par le frontend ***/
-//app.use('/profile/', userRoutes);
+app.use('/profile/', userRoutes);
 app.use('/api', userRoutes);
 app.use('/api', postRoutes);
 app.use('/api', likeRoutes);

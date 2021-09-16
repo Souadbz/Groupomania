@@ -9,7 +9,7 @@
   "test": {
     "username": "souadoc",
     "password": "souadocp7",
-    "database": "groupomania",
+    "database":"groupomania" ,
     "host": "localhost",
     "dialect": "mysql"
   },

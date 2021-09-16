@@ -16,24 +16,20 @@ module.exports = {
           key: 'id'
         }
       },
-      date_post: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
       content: {
         allowNull: false,
         type: Sequelize.STRING
       },
       imageUrl: {
-        allowNull: false,
+        //allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
-        allowNull: false,
+        // allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        //  allowNull: false,
         type: Sequelize.DATE
       }
     });
