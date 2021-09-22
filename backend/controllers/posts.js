@@ -1,72 +1,25 @@
 /** d'importer le package 'file system' de Node pour accéder aux differentes opérations liées aux systèmes de fichiers
  *  ainsi on peut gérer les téléchargements et suppressions d'images ***/
 const fs = require('fs');
-const auth = require('../middleware/auth');
-//const adminAuth = require('../utils/adminAuth');
-var mysql = require("mysql2");
 /*** importer les modèles ***/
-const db = require('../models/index');
-
-const User = db.User;
-const Comment = db.Comment;
-
-const userAuth = require('../utils/userAuth');
-
+let db = require('../models');
 const Post = db.Post
-
-
-
+const User = db.User;
+const getUserId = require("../utils/getUserId");
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
-    if (!req.body.content) {
-        return res.status(400).json({
-            message: "Merci d'écrire un post !"
-        });
-
-    }
     Post.create({
-            userId: userAuth(req),
+            userId: getUserId(req),
             content: req.body.content,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         })
         .then(() => res.status(201).json({
-            message: 'post publié !'
+            message: 'post créé !'
         }))
         .catch((error) => res.status(400).json({
             error
         }))
 
-
-    /*
- 
-     if (req.file) {
-         const post = {
-             userId: req.body.id,
-             content: req.body.content,
-             imageURL: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-         };
- 
-         db.Post.create(post)
-             .then(() => res.status(201).json({
-                 message: 'post créé !'
-             }))
-             .catch((error) => res.status(400).json({
-                 error: 'problème de création'
-             }))
-     } else {
-         const post2 = {
-             userId: req.body.id,
-             content: req.body.content,
-             imageURL: null
-         };
-         db.Post.create(post2)
-             .then(() => res.status(201).json({
-                 message: 'post crée sans photo !'
-             }))
-             .catch((error) => res.status(400).json({
-                 error: 'problème de création de post sans photo'
-             }))
-     }*/
 }
 /*** Modifier un post ***/
 exports.updatePost = (req, res, next) => {
@@ -76,9 +29,9 @@ exports.updatePost = (req, res, next) => {
             }
         })
         .then(post => {
-            if (post.userId !== userAuth(req)) {
+            if (post.userId !== getUserId(req)) {
                 return res.status(401).json({
-                    message: 'authentification échouée !'
+                    error
                 })
             };
             const postObject = req.file ? {
@@ -91,16 +44,17 @@ exports.updatePost = (req, res, next) => {
                     ...postObject
                 }, {
                     where: {
-                        id: req.params.id /*** id de post est le même que l'id du paramètre de la requête ***/
+                        id: req.params.id
                     }
                 })
                 .then(() => res.status(200).json({
-                    message: 'le post a été modifié'
+                    message: 'publication à jour !'
                 }))
                 .catch(error => res.status(400).json({
                     error
                 }))
         });
+
 };
 /*** Supprimer un post ***/
 exports.deletePost = (req, res, next) => {
@@ -110,9 +64,9 @@ exports.deletePost = (req, res, next) => {
             }
         })
         .then(post => {
-            if (post.userId !== req.body.id) {
-                return res.status(401).json({
-                    message: 'authentication échouée !'
+            if (post.userId !== getUserId(req)) {
+                return res.status(404).json({
+                    error
                 })
             };
             const filename = post.imageUrl.split('/images/')[1];
@@ -123,9 +77,9 @@ exports.deletePost = (req, res, next) => {
                         }
                     })
                     .then(() => res.status(200).json({
-                        message: 'le post est supprimé !'
+                        message: 'le post est bien supprimé !'
                     }))
-                    .catch(error => res.status(400).json({
+                    .catch(error => res.status(409).json({
                         error
                     }))
             })
@@ -150,7 +104,15 @@ exports.getOnePost = (req, res, next) => {
 /***  Afficher les posts ***/
 exports.getAllPosts = (req, res, next) => {
     /*** on récupère tout les posts ***/
-    Post.findAll()
+    Post.findAll({
+            include: [{
+                model: User,
+                attributes: ['firstName', 'lastName']
+            }],
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        })
         /*** si tout est ok ***/
         .then(posts => res.status(200).json({
             posts
@@ -161,7 +123,7 @@ exports.getAllPosts = (req, res, next) => {
         }))
 
 };
-exports.adminDeletePost = (req, res, next) => {
+/*exports.adminDeletePost = (req, res, next) => {
     Post.findOne({
             where: {
                 id: req.params.id
@@ -183,4 +145,4 @@ exports.adminDeletePost = (req, res, next) => {
                     }))
             })
         });
-};
+};*/

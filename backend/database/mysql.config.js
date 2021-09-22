@@ -6,6 +6,7 @@ const db = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.e
     host: process.env.DB_HOST,
     dialect: 'mysql'
 });
+
 db.authenticate()
-    .then(() => console.log('Connexion réussie !'))
+    .then(() => console.log('Connexion à mysql réussie !'))
     .catch(err => console.log('Connexion échouée:' + error))

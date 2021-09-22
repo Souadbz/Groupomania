@@ -12,17 +12,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'User',
           key: 'id'
-        }
+        },
       },
       postId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Posts',
+          model: 'Post',
           key: 'id'
-        }
+        },
       },
       content: {
         allowNull: false,
@@ -32,11 +32,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       createdAt: {
-        //allowNull: false,
+        // allowNull: false,
         type: Sequelize.DATE
       },
       updatedAt: {
-        // allowNull: false,
+        //  allowNull: false,
         type: Sequelize.DATE
       }
     });

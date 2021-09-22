@@ -4,6 +4,9 @@
   </div>
 </template>
 
+<script>
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -14,4 +17,5 @@
     height: 100%;
     margin: 0;
     padding: 0;
-}
+ }
+</style> 

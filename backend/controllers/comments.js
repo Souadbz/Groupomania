@@ -1,12 +1,10 @@
-/*** importer mysql ***/
-var mysql = require("mysql2");
-/*** importer les modèles ***/
-//const userAuth = require('../utils/userAuth')
-const db = require('../models/index')
+const getUserId = require("../utils/getUserId");
 
-const Comment = db.Comment
-const User = db.User;
-const Post = db.Post
+/*** importer les modèles ***/
+const db = require('../models')
+const Comment = db.Comment;
+fs = require('fs')
+
 /***Création  d'un commentaire ***/
 exports.createComment = (req, res, next) => {
         Comment.create({
@@ -23,76 +21,26 @@ exports.createComment = (req, res, next) => {
     },
     /*** Suppression d'un commentaire ***/
     exports.deleteComment = (req, res, next) => {
-        /*  Comment.findOne({
-                  where: {
-                      id: req.params.id
-                  }
-              })
-              .then(comment => {
-                  if (comment.userId !== userAuth(req)) {
-                      return res.status(401).json({
-                          message: 'Requête non autorisée !'
-                      })
-                  }
-                  comment.destroy()
-                      .then(() => res.status(200).json({
-                          message: 'commentaire effacé !'
-                      }))
-                      .catch(error => res.status(400).json({
-                          error
-                      }))
-              });*/
-        commentId = req.params.id;
-
-        Comment.destroy({
+        Comment.findOne({
                 where: {
-                    id: commentId
+                    id: req.params.id
                 }
             })
-            .then(() => {
-                Post.findAll({
-                        order: [
-                            ['createdAt', 'DESC']
-                        ],
-                        attributes: {
-                            exclude: ['updatedAt']
-                        },
-                        include: [
-                            // Impossible d'atteindre la table de jointure ePost
-                            // { all: true, nested: true 
-                            // }
-                            {
-                                model: User,
-                                attributes: ['firstName', 'lastName', 'imageURL'],
-                            },
-                            {
-                                model: Comment,
-                                attributes: ['content', 'userId', 'id'],
-                                include: [{
-                                    model: User,
-                                    attributes: ['firstName', 'lastName', 'imageURL']
-                                }]
-                            }
-                        ]
+            .then(comment => {
+                if (comment.userId !== getUserId(req)) {
+                    return res.status(401).json({
+                        error
                     })
-                    .then(posts => {
-
-                        res.status(200).send(posts);
-                    })
-                    .catch(error => {
-                        res.status(500).send({
-                            error,
-                            message: "Impossible jouter la table des likes aux posts"
-                        });
-                    })
-
-            })
-            .catch(error => {
-                res.status(500).send({
-                    error,
-                    message: "Un problème est survenu lors de la suppression du commentaire"
-                })
+                }
+                comment.destroy()
+                    .then(() => res.status(200).json({
+                        message: 'oups ! le commentaire est bien effacé !'
+                    }))
+                    .catch(error => res.status(409).json({
+                        error
+                    }))
             });
+
 
     }
 

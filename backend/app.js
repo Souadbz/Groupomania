@@ -1,10 +1,13 @@
 const express = require('express'); /*** importer l'express ***/
 const bodyParser = require('body-parser'); /*** importer le bodyParser ***/
-const mysql = require('mysql2');
-const connection = require('./database/connect-to-database'); /*** se connecter à la base de données MySQL ***/
+//const mysql = require('mysql2');
+/*** se connecter à la base de données MySQL ***/
+const connection = require('./database/mysql.config');
 const path = require("path");
 
 const app = express(); /*** appeler express pour créer notre application express ***/
+
+
 
 /*** importer les routes à notre application ***/
 /*** importer la route user ***/
@@ -35,7 +38,7 @@ app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.json());
 /*** les routes attendues par le frontend ***/
-app.use('/profile/', userRoutes);
+
 app.use('/api', userRoutes);
 app.use('/api', postRoutes);
 app.use('/api', likeRoutes);

@@ -7,15 +7,19 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       models.Post.belongsTo(models.User, {
-        foreignKey: 'userId'
+        foreignKey: {
+          allowNull: false
+        }
       });
-      models.Post.hasMany(models.Like);
+
+      models.Post.hasMany(models.Comment);
+
     }
   };
   Post.init({
     userId: DataTypes.INTEGER,
     content: DataTypes.STRING,
-    imageUrl: DataTypes.STRING,
+    imageUrl: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Post',

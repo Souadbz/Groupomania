@@ -19,22 +19,16 @@ router.post('/auth/signup', multer, userCtrl.signup);
 router.post('/auth/login', userCtrl.login);
 
 /*** récupérer le profile ***/
-router.get('/users/:id', auth, multer, userCtrl.getProfile);
-/*** récupérer les profiles sans auth ***/
+router.get('/users/:id', multer, userCtrl.getProfile);
+/*** récupérer les profiles ***/
 router.get('/users', auth, userCtrl.getAllProfiles); //supprimer id de plus
 /*** modifier le profile ***/
 router.put('/users/:id', auth, multer, userCtrl.updateProfile);
 
-/*** supprimer le profile  sans auth***/
+/*** supprimer le profile ***/
 router.delete('/users/:id', auth, multer, userCtrl.deleteProfile);
 
-
-/*** news sans auth*/
 router.delete('/admin/delete/:id', auth, multer, userCtrl.adminDeleteProfile);
-//router.put('/admin/:id', adminAuth, multer, userCtrl.adminUpdateProfile);
-//router.put('/new/admin/:id', userCtrl.newAdmin);
-
-
 
 
 
