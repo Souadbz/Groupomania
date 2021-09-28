@@ -125,9 +125,9 @@ export default {
             localStorage.setItem("isAdmin", response.data.isAdmin);
             this.$router.push("/posts");
           })
-          // .catch((error) => console.log(error));
           .catch(
-            () => (this.error = "Veuillez remplir les bons coordonnées !")
+            (error) => (this.error = "Veuillez remplir les bons coordonnées !"),
+            console.log(error)
           );
     },
   },

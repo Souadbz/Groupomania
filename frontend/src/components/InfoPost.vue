@@ -2,55 +2,69 @@
   <div>
     <div class="card" :key="post.id" v-for="post in posts.slice().reverse()">
       <div
+        class="card-header"
         v-for="user in users.filter((user) => {
           return user.id == post.userId;
         })"
         :key="user.id"
       >
         <img :src="user.imageUrl" class="avatar" alt="profile picture" />
-        <strong>{{ user.firstName }} {{ user.lastName }}</strong>
+        <span class="card-title">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
+      <p v-if="post.content !== 'null'" class="card-text">{{ post.content }}</p>
       <div v-if="post.imageUrl">
-        <img class="mw-75 picture-post" :src="post.imageUrl" alt="post" />
+        <img class="card-img" :src="post.imageUrl" alt="post" />
       </div>
-      <p v-if="post.content !== 'null'">{{ post.content }}</p>
-      <span>
+      <span class="btn-end" v-if="user.id == userId">
         <button
-          class="mb-3 btn btn-secondary rounded"
+          class=" btn btn-danger"
           v-bind="post"
-          @click.prevent="deletePost(post.id)"
+          @click.prevent="deletePublication(post.id)"
         >
-          supprimer
+          <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </span>
+      <p class="card-paragraph">Commentaires <i class="fas fa-comment"></i></p>
+
       <div v-if="comments">
         <div
+          class="card-comment"
           v-for="comment in comments.filter((comment) => {
             return comment.postId == post.id;
           })"
           :key="comment.id"
-          class="bg-light rounded"
         >
-          <p class="mb-2">
-            "{{ comment.content }}"
-            <span
-              v-for="user in users.filter((user) => {
-                return user.id == comment.userId;
-              })"
-              :key="user.id"
+          <p
+            v-for="user in users.filter((user) => {
+              return user.id == comment.userId;
+            })"
+            :key="user.id"
+          >
+            <img
+              v-if="user.imageUrl == null"
+              :src="'https://picsum.photos/300/200?random'"
+              alt="photo de profil"
+              class=" rouned-circle mr-1 avatar"
+            />
+            <img
+              v-else
+              :src="user.imageUrl"
+              class="avatar"
+              alt="profile picture"
+            />
+            <span class="card-title"
+              >{{ user.firstName }} {{ user.lastName }}</span
             >
-              par
-              <strong>{{ user.firstName }} {{ user.lastName }}</strong>
-            </span>
           </p>
-          <span v-if="userId == user.id">
+          <p class="card-description">"{{ comment.content }}"</p>
+          <div v-if="userId == user.id" id="btn-trash">
             <button
-              class="btn btn-danger"
+              class=" btn-secondary "
               @click.prevent="deleteComment(comment.id)"
             >
-              Effacer
+              <i class="fa fa-trash" aria-hidden="true"></i>
             </button>
-          </span>
+          </div>
         </div>
       </div>
       <CreateComment v-bind="post" />
@@ -66,6 +80,22 @@ export default {
   components: {
     CreateComment,
   },
+  data() {
+    return {
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("token"),
+      users: [],
+      user: {
+        id: localStorage.getItem("userId"),
+        isAdmin: localStorage.getItem("isAdmin"),
+      },
+      post: {},
+      posts: [],
+      comment: {},
+      comments: [],
+      content: {},
+    };
+  },
   created() {
     axios
       .get("http://localhost:3000/api/posts", {
@@ -75,8 +105,9 @@ export default {
           Authorization: "Bearer " + this.token,
         },
       })
-      .then((res) => {
-        this.posts = res.data.posts;
+      .then((response) => {
+        this.posts = response.data.posts;
+        console.log(this.posts);
       })
       .catch((error) => {
         console.log(error);
@@ -89,11 +120,11 @@ export default {
           Authorization: "Bearer " + this.token,
         },
       })
-      .then((res) => {
-        this.comments = res.data;
+      .then((response) => {
+        this.comments = response.data;
       })
-      .catch((err) => {
-        console.log(err + "Utilisateur inconnu ou commentaires indisponibles");
+      .catch((error) => {
+        console.log(error);
       });
     axios
       .get("http://localhost:3000/api/users", {
@@ -103,31 +134,16 @@ export default {
           Authorization: "Bearer " + this.token,
         },
       })
-      .then((res) => {
-        this.users = res.data.users;
+      .then((response) => {
+        this.users = response.data.users;
       })
       .catch((error) => {
         console.log(error);
       });
   },
-  data() {
-    return {
-      posts: [],
-      post: {},
-      comments: [],
-      comment: {},
-      content: {},
-      userId: localStorage.getItem("userId"),
-      users: [],
-      user: {
-        id: localStorage.getItem("userId"),
-        isAdmin: localStorage.getItem("isAdmin"),
-      },
-      token: localStorage.getItem("token"),
-    };
-  },
+
   methods: {
-    deletePost(id) {
+    deletePublication(id) {
       axios
         .delete(`http://localhost:3000/api/posts/${id}`, {
           headers: {
@@ -135,19 +151,18 @@ export default {
             Authorization: "Bearer " + this.token,
           },
         })
-        .then(() => this.$router.go());
+        .then(() => this.$router.go(0));
     },
-    /*deleteComment(id) {
-            axios
-                .delete(`http://localhost:3000/api/comments/${id}`,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            "Authorization": "Bearer " + this.token
-                        }
-                    })
-                .then(() => this.$router.go())
-        }*/
+    deleteComment(id) {
+      axios
+        .delete(`http://localhost:3000/api/comments/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token,
+          },
+        })
+        .then(() => this.$router.go(0));
+    },
   },
 };
 </script>
@@ -160,11 +175,37 @@ export default {
   margin-top: 1rem;
 }
 .avatar {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0.5rem;
+  border-radius: 50%;
 }
-.picture-post {
-  width: 5rem;
-  height: 5rem;
+.card-text {
+  margin: 1rem;
+}
+.card-title {
+  font-weight: 600;
+  color: blue;
+}
+.card-paragraph {
+  height: 1.7rem;
+  margin-bottom: 0;
+  text-align: center;
+  color: #fff;
+  background-color: #0d6efd;
+}
+.btn-end {
+  display: block;
+  text-align: end;
+}
+.card-comment {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid #ced4da;
+}
+#btn-trash {
+  text-align: end;
+}
+input {
+  margin-bottom: 0;
 }
 </style>

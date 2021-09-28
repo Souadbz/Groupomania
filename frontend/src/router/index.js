@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Signup from '../views/Signup.vue'
 import Posts from "../views/Posts.vue";
-import Profile from "../views/Profile.vue";
+import Account from "../views/Account.vue";
 import Home from '../views/Home.vue'
 
 
@@ -25,9 +25,9 @@ const routes = [{
     component: Posts,
   },
   {
-    name: 'Profile',
-    path: '/profile',
-    component: Profile,
+    name: 'Account',
+    path: '/account',
+    component: Account,
     props: true
   },
 ]

@@ -37,20 +37,6 @@ CREATE TABLE Posts (
     CONSTRAINT fk_post_userId FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
-/*** création de la table des likes ***/
-DROP TABLE IF EXISTS Likes;
-CREATE TABLE Likes (
-    id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    userId SMALLINT UNSIGNED NOT NULL,
-    postId SMALLINT UNSIGNED NOT NULL,
-    liked TINYINT UNSIGNED DEFAULT 0,
-    PRIMARY KEY (id),
-    CONSTRAINT fk_likes_posts_id FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_likes_users_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-
-
 /**** création de la table des commentaires ***/
 DROP TABLE IF EXISTS Comments;
 CREATE TABLE Comments (
@@ -72,4 +58,4 @@ INSERT INTO Posts(id, userId, content, imageUrl, createdAt, updatedAt) VALUES
     (2, 4, 'hello tout le monde','', '2015-01-04 17:24:19', '2015-01-05 00:24:19'),
   
 INSERT INTO Comments(id, userId, postId, content) VALUES 
-(2, 4, 2, 'top tout le monde')
+(2, 4, 2, 'top !!')

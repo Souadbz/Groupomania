@@ -1,56 +1,66 @@
 <template>
-<div class="mx-auto w-50 mb-3" v-bind="comment">
-        <form class="mt-3">
-                <input
-                v-bind="comment"
-                    class="form-control content"
-                    name="content"
-                    ref="content"
-                    placeholder="Tapez un commentaire !"
-               />
-            <button
-            v-bind="comment"
-                type="submit"
-                class="btn btn-primary mb-3"
-                @click="postComment()"
-                ref="comment"
-            >Publier</button>
-        </form>
-       </div> 
+  <div class="blocComment" v-bind="$attrs">
+    <form class="mt-3">
+      <input
+        v-bind="$attrs"
+        class="content"
+        name="content"
+        ref="content"
+        placeholder="Tapez un commentaire !"
+      />
+      <span id="btn-publication">
+        <button
+          v-bind="$attrs"
+          type="submit"
+          class="btn btn-primary"
+          @click="postComment()"
+          ref="comment"
+        >
+          <i class="far fa-paper-plane"></i>
+        </button>
+      </span>
+    </form>
+  </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
-    name: "createComment",
-    data() {
-        return {
-            post: {},
-            userId: localStorage.getItem('userId'),
-            token: localStorage.getItem('token'),
-            postId: "",
-            content: "",
-            comment:""
-        }
+  name: "createComment",
+  data() {
+    return {
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("token"),
+      post: {},
+      postId: "",
+      content: "",
+      comment: "",
+    };
+  },
+  methods: {
+    postComment() {
+      axios.post("http://localhost:3000/api/comments", {
+        userId: localStorage.getItem("userId"),
+        postId: this.$refs.comment.id,
+        content: this.$refs.content.value,
+
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+      });
     },
-    methods: {
-        postComment() {
-            axios
-                .post('http://localhost:3000/api/comments', {
-                    postId: this.$refs.comment.id,
-                    userId: localStorage.getItem('userId'),
-                    content: this.$refs.content.value,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": 'Bearer ' + this.token
-                    }
-                   
-                })
-                .then(() => this.$router.go())
-              
-       },
-    }
-   
-}
+  },
+};
 </script>
-<style>
+<style scoped lang="css">
+.blocComment input {
+  border: none;
+}
+input:focus {
+  outline: none;
+}
+#btn-publication {
+  display: block;
+  text-align: end;
+}
 </style>

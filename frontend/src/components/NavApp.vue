@@ -1,58 +1,81 @@
- <template>
-  <nav class="navbar navbar-light bg-light navbar-expand-lg" id="navExpand">
-  <a class="navbar-brand" href="#"><img src="../assets/icon-left-font-monochrome-black.svg" width="130" height="60" alt="le logo de gropomania" title="logo groupomania" id="logo" /></a>
+<template>
+  <nav class="navbar navbar-light bg-light expand-lg">
+    <a class="navbar-brand" href="#"
+      ><img
+        src="../assets/icon-left-font-monochrome-black.svg"
+        width="130"
+        height="60"
+        alt="le logo de gropomania"
+        title="logo groupomania"
+        id="logo"
+    /></a>
 
-  <div>
-    <ul class="nav">
-      <li class="nav-item active">
-        <router-link class="nav-link" to="/profile">Profil</router-link>
-      </li>
-      <router-link class="nav-link" to="/admin">
-      <li class="nav-item" v-if="isAdmin ==='true' " type="button" >Amnistration</li>
+    <div>
+      <ul class="nav">
+        <li class="nav-item active">
+          <router-link
+            aria-label="voir son compte"
+            title="voir son compte"
+            type="button"
+            class="nav-link"
+            to="/account"
+          >
+            <i class="fas fa-user-cog"></i
+          ></router-link>
+        </li>
+        <router-link class="nav-link" to="/admin">
+          <li
+            class="nav-item"
+            v-if="isAdmin === 'true'"
+            type="button"
+            arial-label="voir son compte"
+          >
+            Amnistration
+          </li>
         </router-link>
-      <li class="nav-item">
-       <button type="button" class="btn btn-danger" @click="deconnexion">Déconnexion</button>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <li class="nav-item">
+          <button
+            type="button"
+            aria-label="Se déconnecter"
+            title="Se déconnecter"
+            class="btn btn-danger"
+            id="btn-logout"
+            @click="logout"
+          >
+            <i class="fas fa-power-off"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
-//import { mapState } from "vuex";
 export default {
   name: "NavApp",
-/*  computed: {
-  //  ...mapState(["user"])
-  },*/
 
   data() {
     return {
-      isAdmin: localStorage.getItem('isAdmin')
-    }
+      isAdmin: localStorage.getItem("isAdmin"),
+    };
   },
   methods: {
-    deconnexion() {
+    logout: function() {
       localStorage.clear();
       this.$router.push("/");
-    }
-  }
-
-
+    },
+  },
 };
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 #logo {
-  margin-left: 1rem
+  margin-left: 1rem;
 }
-
-@media (min-width: 992px){
-#navExpend {
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+.fa-user-cog {
+  font-size: 1.5em;
 }
+#btn-logout {
+  margin: 0 0.5rem;
 }
-
-
 </style>
