@@ -5,7 +5,8 @@ const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png',
-    'image/gif': 'gif'
+    'image/gif': 'gif',
+    "image/webp": "webp",
 };
 /*** création d'un objet de configuration pour indique à multer où enregistrer les fichiers images et les renommer ***/
 const storage = multer.diskStorage({

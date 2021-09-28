@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "souadoc",
-    "password": "souadocp7",
-    "database": "groupomania",
-    "host": "localhost",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME",
+    "host": "DB_HOST",
     "dialect": "mysql"
   },
   "test": {
-    "username": "souadoc",
-    "password": "souadocp7",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
     "database":"groupomania" ,
-    "host": "localhost",
+    "host": "DB_HOST",
     "dialect": "mysql"
   },
   "production": {
-    "username": "souadoc",
-    "password": "souadocp7",
-    "database": "groupomania",
-    "host": "localhost",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME",
+    "host": "DB_HOST",
     "dialect": "mysql"
   }
 }

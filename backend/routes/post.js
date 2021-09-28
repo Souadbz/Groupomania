@@ -19,13 +19,13 @@ router.post("/posts", auth, multer, postCtrl.createPost);
 router.put("/posts/:id", auth, multer, postCtrl.updatePost);
 
 /*** Requête DELETE pour supprimer un post ***/
-router.delete("/posts/id", auth, multer, postCtrl.deletePost);
+router.delete("/posts/:id", auth, multer, postCtrl.deletePost);
 
 /*** Requête GET pour afficher tous les posts ***/
-router.get("/posts", postCtrl.getAllPosts);
+router.get("/posts", auth, multer, postCtrl.getAllPosts);
 
 /*** Requête GET pour afficher un post en particulier ***/
-//router.get("/posts/:id", auth, postCtrl.getOnePost);
+router.get("/posts/:id", auth, postCtrl.getOnePost);
 
 
 /*** Requête PUT pour modifier un posté ***/

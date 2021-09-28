@@ -96,7 +96,7 @@ db.Comment.belongsTo(db.Post, {
 
 sequelize.authenticate()
   .then(() => console.log('Connexion réussie !'))
-  .catch(err => console.log('Connexion échouée:' + error))
+  .catch(error => console.log('Connexion échouée:' + error))
 
 
 module.exports = db;

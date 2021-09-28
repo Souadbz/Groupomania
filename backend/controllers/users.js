@@ -63,17 +63,15 @@ exports.signup = async (req, res, next) => {
                         message: 'utilisateur connecté et créé',
                     }))
 
-
-
-
-
                     .catch(error => res.status(400).json({
-                        error: "impossible de créer le compte "
+                        error,
+                        message: "impossible de créer le compte "
                     }))
             })
 
             .catch(error => res.status(500).json({
-                error: "erreur serveur pour la création du compte"
+                error,
+                message: "erreur serveur pour la création du compte"
             }))
 
     } catch (error) {
@@ -165,8 +163,17 @@ exports.updateProfile = (req, res, next) => {
                         id: req.params.id
                     }
                 })
-                .then(() => res.status(200).json({
-                    message: "Profil à jour !"
+                .then((user) => res.status(200).json({
+                    message: "Profil à jour !",
+                    user: {
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        isAdmin: user.isAdmin,
+                        imageUrl: user.imageUrl
+                    }
+
                 }))
                 .catch(error => res.status(405).json({
                     error
@@ -206,7 +213,7 @@ exports.getProfile = async (req, res, next) => {
     /*** on récupére l'utilisateur depuis la base de données ***/
     try {
         const user = await User.findOne({
-                attributes: ['id', 'firstName', 'lastName', 'email', 'isAdmin'],
+                attributes: ['id', 'firstName', 'lastName', 'email', 'isAdmin', 'imageUrl'],
                 where: {
                     id: req.params.id
                 }
@@ -220,7 +227,8 @@ exports.getProfile = async (req, res, next) => {
             /*** problème serveur ***/
             .catch(function (err) {
                 res.status(500).json({
-                    error: 'le serveur ne récupère pas le profile'
+                    error,
+                    message: 'le serveur ne récupère pas le profile'
                 });
             });
 

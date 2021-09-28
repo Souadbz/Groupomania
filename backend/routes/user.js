@@ -19,9 +19,9 @@ router.post('/auth/signup', multer, userCtrl.signup);
 router.post('/auth/login', userCtrl.login);
 
 /*** récupérer le profile ***/
-router.get('/users/:id', multer, userCtrl.getProfile);
+router.get('/users/:id', auth, multer, userCtrl.getProfile);
 /*** récupérer les profiles ***/
-router.get('/users', auth, userCtrl.getAllProfiles); //supprimer id de plus
+router.get('/users', auth, userCtrl.getAllProfiles);
 /*** modifier le profile ***/
 router.put('/users/:id', auth, multer, userCtrl.updateProfile);
 

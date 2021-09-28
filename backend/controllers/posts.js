@@ -17,13 +17,15 @@ exports.createPost = (req, res, next) => {
             message: 'post créé !'
         }))
         .catch((error) => res.status(400).json({
-            error
+            error,
+            message: 'Vous ne pouvez pas publier un post'
         }))
 
 }
 /*** Modifier un post ***/
 exports.updatePost = (req, res, next) => {
     Post.findOne({
+
             where: {
                 id: req.params.id
             }
@@ -66,7 +68,7 @@ exports.deletePost = (req, res, next) => {
         .then(post => {
             if (post.userId !== getUserId(req)) {
                 return res.status(404).json({
-                    error
+                    message: 'post introuvable'
                 })
             };
             const filename = post.imageUrl.split('/images/')[1];
@@ -79,12 +81,15 @@ exports.deletePost = (req, res, next) => {
                     .then(() => res.status(200).json({
                         message: 'le post est bien supprimé !'
                     }))
-                    .catch(error => res.status(409).json({
+                    .catch(error => res.status(400).json({
                         error
                     }))
             })
-        });
-
+        })
+        .catch(error => res.status(500).json({
+            error,
+            message: 'impossible de supprimer le post !'
+        }))
 };
 /* Afficher un seul message */
 exports.getOnePost = (req, res, next) => {
@@ -98,7 +103,8 @@ exports.getOnePost = (req, res, next) => {
             post
         }))
         .catch(error => res.status(404).json({
-            error
+            error,
+            message: 'impossible de récupèrer un post'
         }))
 };
 /***  Afficher les posts ***/

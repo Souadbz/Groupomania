@@ -14,8 +14,6 @@ const app = express(); /*** appeler express pour créer notre application expres
 const userRoutes = require('./routes/user');
 /*** importer la route post ***/
 const postRoutes = require('./routes/post');
-/*** importer la route like ***/
-const likeRoutes = require('./routes/like');
 /*** importer la route user ***/
 const commentRoutes = require('./routes/comment');
 
@@ -41,7 +39,6 @@ app.use(express.json());
 
 app.use('/api', userRoutes);
 app.use('/api', postRoutes);
-app.use('/api', likeRoutes);
 app.use('/api', commentRoutes);
 
 /*** exporter notre application pour qu'on puisse y accéder dans les autres fichiers de notre projet ***/
