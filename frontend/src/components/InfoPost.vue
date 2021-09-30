@@ -122,6 +122,7 @@ export default {
       })
       .then((response) => {
         this.comments = response.data;
+        console.log(this.comments);
       })
       .catch((error) => {
         console.log(error);
@@ -136,6 +137,7 @@ export default {
       })
       .then((response) => {
         this.users = response.data.users;
+        console.log(this.users);
       })
       .catch((error) => {
         console.log(error);
@@ -148,6 +150,7 @@ export default {
         .delete(`http://localhost:3000/api/posts/${id}`, {
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
             Authorization: "Bearer " + this.token,
           },
         })
@@ -158,6 +161,7 @@ export default {
         .delete(`http://localhost:3000/api/comments/${id}`, {
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
             Authorization: "Bearer " + this.token,
           },
         })

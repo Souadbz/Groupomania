@@ -1,0 +1,90 @@
+<template>
+  <div>
+    <div class="card" v-bind="$attrs">
+      <div class="card-header-info">Informations personnelles</div>
+      <p class="text">
+        Prénom:
+        <span class="text_color">{{ $attrs.firstName }}</span>
+      </p>
+      <p class="text">
+        Nom:
+        <span class="text_color">{{ $attrs.lastName }}</span>
+      </p>
+      <p class="text">
+        Email:
+        <span class="text_color">{{ $attrs.email }}</span>
+      </p>
+      <div>
+        <img
+          :src="$attrs.imageUrl || 'https://picsum.photos/300/200?random'"
+          alt="photo de profil"
+          class=" rouned-circle mr-1 avatar"
+        />
+      </div>
+      <button
+        class="btn btn-danger"
+        id="btn-card"
+        v-bind="user"
+        @click.prevent="deleteUser(users.id)"
+      >
+        Supprimer <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "ProfilesList",
+  data() {
+    return {
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("token"),
+      users: [],
+      user: {
+        isAdmin: localStorage.getItem("isAdmin"),
+      },
+    };
+  },
+  methods: {
+    deleteUser(id) {
+      axios
+        .delete(`http://localhost:3000/api/admin/delete/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + this.token,
+          },
+        })
+        .then(() => this.$router.go(0));
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.card-header-info {
+  background-color: #ffe4b5;
+}
+.text {
+  margin-left: 0.5rem;
+  padding-top: 0.5rem;
+  font-weight: bold;
+}
+.text_color {
+  margin-left: 0.5rem;
+  color: blue;
+  font-weight: 400;
+}
+.text-center {
+  display: block;
+}
+.avatar {
+  margin: 0 1rem 1rem 1rem;
+}
+#btn-card {
+  width: 50%;
+  margin: 1rem auto;
+}
+</style>

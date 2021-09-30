@@ -74,16 +74,17 @@ export default {
       formData.append("image", this.image);
       formData.append("userId", parseInt(localStorage.getItem("userId")));
       formData.append("content", document.getElementById("content").value);
-      console.log("test-récup", formData.get("image"));
-      console.log("test-récup", formData.get("content"));
+      console.log("test", formData.get("image"));
+      console.log("test", formData.get("content"));
       axios
         .post("http://localhost:3000/api/posts", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Accept: "multipart/form-data",
             Authorization: "Bearer " + this.token,
           },
         })
-        .then(() => this.$router.go());
+        .then(() => this.$router.go(0));
     },
   },
 };

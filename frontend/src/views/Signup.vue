@@ -85,14 +85,12 @@
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import axios from "axios";
-
 export default {
   name: "Signup",
   components: {
     Footer,
     Nav,
   },
-
   data() {
     return {
       firstName: "",
@@ -102,7 +100,6 @@ export default {
       error: "",
     };
   },
-
   methods: {
     dataSignup() {
       if (
@@ -118,7 +115,6 @@ export default {
             email: document.getElementById("email").value,
             password: document.getElementById("password").value,
           })
-
           .then((response) => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userId", response.data.userId);
@@ -126,8 +122,7 @@ export default {
             this.$router.push("/posts");
           })
           .catch(
-            (error) => (this.error = "Veuillez remplir les bons coordonnées !"),
-            console.log(error)
+            () => (this.error = "Veuillez remplir les bons coordonnées !")
           );
     },
   },

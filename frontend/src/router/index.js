@@ -4,7 +4,7 @@ import Signup from '../views/Signup.vue'
 import Posts from "../views/Posts.vue";
 import Account from "../views/Account.vue";
 import Home from '../views/Home.vue'
-
+import Administrateur from '../views/Administrateur.vue'
 
 
 Vue.use(VueRouter)
@@ -29,6 +29,11 @@ const routes = [{
     path: '/account',
     component: Account,
     props: true
+  },
+  {
+    name: 'Administrateur',
+    path: '/administrateur',
+    component: Administrateur,
   },
 ]
 

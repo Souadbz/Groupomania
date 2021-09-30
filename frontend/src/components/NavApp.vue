@@ -23,14 +23,13 @@
             <i class="fas fa-user-cog"></i
           ></router-link>
         </li>
-        <router-link class="nav-link" to="/admin">
-          <li
-            class="nav-item"
-            v-if="isAdmin === 'true'"
-            type="button"
-            arial-label="voir son compte"
-          >
-            Amnistration
+        <router-link
+          v-if="isAdmin == 'true'"
+          class="nav-link"
+          to="/administrateur"
+        >
+          <li class="nav-item" type="button" arial-label="voir son compte">
+            Admin
           </li>
         </router-link>
         <li class="nav-item">
@@ -59,6 +58,7 @@ export default {
       isAdmin: localStorage.getItem("isAdmin"),
     };
   },
+
   methods: {
     logout: function() {
       localStorage.clear();

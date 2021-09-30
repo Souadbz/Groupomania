@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 /*** la récupération de  la configuration d'authentification de JsonWebToken ***/
 const auth = require('../middleware/auth');
-//const adminAuth = require('../utils/adminAuth')
+const authAdmin = require('../utils/authAdmin')
 /*** importer multer pour la gestion des images ***/
 const multer = require('../middleware/multer-config');
 /*** importer le controllers users pour associer les fonctions aux routes ***/
@@ -14,7 +14,7 @@ const userCtrl = require('../controllers/users');
 /*** les routes d'authentification ***/
 
 /*** créer et enregister un nouvel utilisateur ***/
-router.post('/auth/signup', multer, userCtrl.signup);
+router.post('/auth/signup', userCtrl.signup);
 /*** la connection d'un utilisateur ***/
 router.post('/auth/login', userCtrl.login);
 
@@ -28,12 +28,8 @@ router.put('/users/:id', auth, multer, userCtrl.updateProfile);
 /*** supprimer le profile ***/
 router.delete('/users/:id', auth, multer, userCtrl.deleteProfile);
 
-router.delete('/admin/delete/:id', auth, multer, userCtrl.adminDeleteProfile);
-
-
-
-
-
+/*** administateur: supprimer le profile d'un utilisateur ***/
+router.delete('/admin/delete/:id', authAdmin, multer, userCtrl.adminDeleteProfileUser);
 
 /*** exporter le router ***/
 module.exports = router;

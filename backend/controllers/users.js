@@ -253,7 +253,7 @@ exports.getAllProfiles = (req, res, next) => {
 
 };
 
-exports.adminDeleteProfile = (req, res, next) => {
+exports.adminDeleteProfileUser = (req, res, next) => {
 
     User.destroy({
             where: {
@@ -266,4 +266,5 @@ exports.adminDeleteProfile = (req, res, next) => {
         .catch(error => res.status(403).json({
             message: 'Requête réservée aux admins'
         }))
+    console.log(User.destroy)
 };

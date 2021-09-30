@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 /*** la récupération de  la configuration d'authentification de JsonWebToken ***/
 const auth = require("../middleware/auth");
-//const adminAuth = require('../utils/adminAuth')
+const authAdmin = require('../utils/authAdmin')
 
 /*** importer le controllers post pour associer les fonctions aux routes***/
 const postCtrl = require("../controllers/posts");
@@ -28,9 +28,9 @@ router.get("/posts", auth, multer, postCtrl.getAllPosts);
 router.get("/posts/:id", auth, postCtrl.getOnePost);
 
 
-/*** Requête PUT pour modifier un posté ***/
-//router.put("/posts/admin/:id", adminAuth, multer, postCtrl.updatePost);
-//router.delete('/admin/:id', adminAuth, multer, postCtrl.adminDeletePost);
+/*** Requête DELETE de l'administrateur pour supprimer un post  ***/
+router.put("/posts/admin/:id", authAdmin, multer, postCtrl.updatePost);
+router.delete('/admin/delete/posts/:id', authAdmin, multer, postCtrl.adminDeletePost);
 
 /*** exporter le router ***/
 module.exports = router;

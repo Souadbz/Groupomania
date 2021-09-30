@@ -53,7 +53,7 @@ CREATE TABLE Comments (
 /*** inserer des users ***/
 INSERT INTO Users(id, imageUrl, firstName, lastName, email, password, isAdmin, createdAt, updatedAt) VALUES 
     (4, '', 'dodo', 'Dadi','dodo@gmail.fr', 'DADIdodo12.', 0,'2013-01-04 17:24:19', '2013-01-05 00:24:19'),
-    
+  
 INSERT INTO Posts(id, userId, content, imageUrl, createdAt, updatedAt) VALUES 
     (2, 4, 'hello tout le monde','', '2015-01-04 17:24:19', '2015-01-05 00:24:19'),
   

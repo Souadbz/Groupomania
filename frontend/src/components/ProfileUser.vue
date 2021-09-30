@@ -156,6 +156,7 @@ export default {
         .put(`http://localhost:3000/api/users/${this.userId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Accept: "multipart/form-data",
             Authorization: "Bearer " + this.token,
           },
         })
@@ -169,6 +170,7 @@ export default {
         .delete(`http://localhost:3000/api/users/${id}`, {
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
             Authorization: "Bearer " + this.token,
           },
         })
