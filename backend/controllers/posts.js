@@ -5,11 +5,11 @@ const fs = require('fs');
 let db = require('../models');
 const Post = db.Post
 const User = db.User;
-const getUserId = require("../utils/getUserId");
+const getAuthUserId = require("../utils/getAuthUserId");
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
     Post.create({
-            userId: getUserId(req),
+            userId: getAuthUserId(req),
             content: req.body.content,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
         })
@@ -31,7 +31,7 @@ exports.updatePost = (req, res, next) => {
             }
         })
         .then(post => {
-            if (post.userId !== getUserId(req)) {
+            if (post.userId !== getAuthUserId(req)) {
                 return res.status(401).json({
                     error
                 })
@@ -66,7 +66,7 @@ exports.deletePost = (req, res, next) => {
             }
         })
         .then(post => {
-            if (post.userId !== getUserId(req)) {
+            if (post.userId !== getAuthUserId(req)) {
                 return res.status(404).json({
                     message: 'post introuvable'
                 })
@@ -144,10 +144,10 @@ exports.adminDeletePost = (req, res, next) => {
                         }
                     })
                     .then(() => res.status(200).json({
-                        message: 'Gif supprimé !'
+                        message: 'Vous avez supprimé la publication du user'
                     }))
                     .catch(error => res.status(403).json({
-                        message: 'requête réservée aux admins'
+                        error
                     }))
             })
         });

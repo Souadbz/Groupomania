@@ -5,6 +5,18 @@ const bodyParser = require('body-parser'); /*** importer le bodyParser ***/
 const connection = require('./database/mysql.config');
 const path = require("path");
 
+/*** importer helmet pour sécuriser HTTP headers ***/
+
+const helmet = require("helmet");
+
+/*** importer le module express-rate-limit pour limiter le nombre de requêtes que peut faire un utilisateur ***/
+
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    /*** pour chaque 10 minutes ***/
+    max: 40 /*** L'utilisateur pourra faire 40 requêtes toutes les 10 minutes ***/
+});
 const app = express(); /*** appeler express pour créer notre application express ***/
 
 
@@ -40,6 +52,11 @@ app.use(express.json());
 app.use('/api', userRoutes);
 app.use('/api', postRoutes);
 app.use('/api', commentRoutes);
+
+/*** securisé les en-têtes HTTP ***/
+app.use(helmet());
+/*** Cette limite de 40 requêtes toutes les 10 minutes sera effective sur toutes les routes ***/
+app.use(limiter);
 
 /*** exporter notre application pour qu'on puisse y accéder dans les autres fichiers de notre projet ***/
 module.exports = app;

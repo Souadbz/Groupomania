@@ -1,8 +1,9 @@
-const jwt = require('jsonwebtoken'); /*** importer le package jsonwebtoken pour vérifier les tokens ***/
+/*** importer le package jsonwebtoken pour vérifier les tokens ***/
 
+const jwt = require('jsonwebtoken');
 require("dotenv").config();
 
-const getUserIdToken = require("../utils/getUserId");
+const getAuthUserIdToken = require("../utils/getAuthUserId");
 module.exports = (req, res, next) => {
     const userId = req.body.userId;
     const authorization = req.headers.authorization;
@@ -11,7 +12,7 @@ module.exports = (req, res, next) => {
 
     try {
         if (!authorization) throw new Error("Problème auth");
-        if (userId && userId !== getUserIdToken(req)) throw new Error("userId invalide");
+        if (userId && userId !== getAuthUserIdToken(req)) throw new Error("userId invalide");
         next();
     } catch (error) {
         res.status(401).json({

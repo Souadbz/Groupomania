@@ -29,7 +29,6 @@ router.get("/posts/:id", auth, postCtrl.getOnePost);
 
 
 /*** Requête DELETE de l'administrateur pour supprimer un post  ***/
-router.put("/posts/admin/:id", authAdmin, multer, postCtrl.updatePost);
 router.delete('/admin/delete/posts/:id', authAdmin, multer, postCtrl.adminDeletePost);
 
 /*** exporter le router ***/

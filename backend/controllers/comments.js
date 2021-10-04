@@ -1,4 +1,4 @@
-const getUserId = require("../utils/getUserId");
+const getAuthUserId = require("../utils/getAuthUserId");
 
 /*** importer les modèles ***/
 const db = require('../models')
@@ -38,7 +38,7 @@ exports.deleteComment = (req, res, next) => {
             }
         })
         .then(comment => {
-            if (comment.userId !== getUserId(req)) {
+            if (comment.userId !== getAuthUserId(req)) {
                 return res.status(401).json({
                     error
                 })
@@ -54,20 +54,3 @@ exports.deleteComment = (req, res, next) => {
 
 
 }
-exports.adminDeleteComment = (req, res, next) => {
-    Comment.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-        .then(() => res.status(200).json({
-            message: 'commentaire effacé par un administrateur !'
-        }))
-        .catch(error => res.status(400).json({
-            error
-        }))
-        .catch(error => res.status(403).json({
-            error,
-            message: 'vous n\êtes pas un adminstrateur !'
-        }))
-};

@@ -2,7 +2,6 @@
 const express = require('express');
 /*** appeler le router avec la méthode express/ il va nous permettre d'utiliser le mot router. à la place de app. ***/
 const router = express.Router();
-const authAdmin = require('../utils/authAdmin')
 
 /*** la récupération de  la configuration d'authentification de JsonWebToken ***/
 const auth = require('../middleware/auth');
@@ -20,7 +19,6 @@ router.get('/comments', auth, commentCtrl.getComments);
 
 
 
-router.delete('comments/admin/:id', authAdmin, commentCtrl.adminDeleteComment);
 
 /*** exporter le router ***/
 module.exports = router;
