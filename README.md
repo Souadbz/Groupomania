@@ -7,7 +7,7 @@ Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour cé
 Le client en question est `Groupomania`, un groupe spécialisé dans la grande distribution et l'un des plus fidèles clients de l'agence.
 Ma mission consiste à construire un réseau social interne pour les employés de `Groupomania` (développer les parties frontend et backend).
 
-### Backend
+## Backend
 
 - Serveur **Node.js**
 - Framework **Express.js**
@@ -17,7 +17,6 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - sécurité **RGPD et OSWAP**
 
 ## Installation
-
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
 - chargez le package `nodemon` : `npm install -g nodemon`
 - Configure `config/config.json`
@@ -25,8 +24,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - lancez le serveur: `nodemon server`
 - Exécution de l’api sur http://localhost:3000
 
-## Indication:
-
+## Indication
 Avant d'accéder à l'application, vous devrez créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend.
 Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
 
@@ -44,14 +42,13 @@ DB_Name='nom de la base de données MySQL'
 
 SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 
-### Frontend
+## Frontend
 
 - Framework **Vue.js**
 - **Axios**
 - **Bootstrap**
 
-## Installation
-
+### Installation
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
 - Lancez la commande `np run serve`
 - Le serveur est accessible en local via le port 8080: http://localhost:8080/
