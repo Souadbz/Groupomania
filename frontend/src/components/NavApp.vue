@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-light bg-light expand-lg">
-    <a class="navbar-brand" href="#"
+    <a class="navbar-brand" href="#" alt="logo du site" title="logo du site"
       ><img
         src="../assets/icon-left-font-monochrome-black.svg"
         width="130"
@@ -15,27 +15,33 @@
         <li class="nav-item active">
           <router-link
             aria-label="voir son compte"
+            alt="voir son compte"
             title="voir son compte"
             type="button"
             class="nav-link"
             to="/account"
           >
-            <i class="fas fa-user-cog"></i
+            <i class="fas fa-user"></i
           ></router-link>
         </li>
         <router-link
           v-if="isAdmin == 'true'"
           class="nav-link"
+          aria-label="Gérer le site groupomania"
+          alt="Gérer le site goupomania"
+          title="Gérer le site goupomania"
+          type="button"
           to="/administrateur"
         >
           <li class="nav-item" type="button" arial-label="voir son compte">
-            Admin
+            Admin <i class="fas fa-cogs"></i>
           </li>
         </router-link>
         <li class="nav-item">
           <button
             type="button"
             aria-label="Se déconnecter"
+            alt="se déconnecter"
             title="Se déconnecter"
             class="btn btn-danger"
             id="btn-logout"

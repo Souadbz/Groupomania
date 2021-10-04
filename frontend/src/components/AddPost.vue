@@ -1,47 +1,49 @@
 <template>
   <div class="card">
     <div class="card-body col d-flex justify-content-center">
-      <main class="card-body">
-        <h2 class="card-title">partagez vos intérêts avec votre communauté</h2>
+      <main>
         <form
           class="container text-center form-group"
           @submit.prevent="addPost()"
           enctype="multipart/form-data"
           method="post"
         >
-          <div class="mx-auto w-50 mb-3">
+          <div class="card-textarea">
             <label for="content" class="form-label form-control-sm"
-              >Postez vos émotions :
+              >Exprimez vos émotions
             </label>
-            <input
+            <textarea
+              class="form-control form-control-sm "
+              rows="5"
+              cols="20"
               type="text"
               v-model="content"
-              class="form-control form-control-sm "
               placeholder="Postez!"
               name="content"
               id="content"
-            />
+              required
+            ></textarea>
           </div>
-          <div class="mx-auto w-50 mb-3">
+          <div class="card-body d-flex flex-column justify-content-between">
             <input
               type="file"
-              class="form-controle"
+              class="form-control"
               name="image"
               id="image"
               ref="image"
               aria-describedby="addFiles"
               @change="selectFile()"
             />
-            <div class="card-body mx-auto">
-              <button
-                type="submit"
-                id="btnP"
-                class="btn btn-primary"
-                @click.prevent="addPost"
-              >
-                Postez
-              </button>
-            </div>
+          </div>
+          <div class="card-body mx-auto">
+            <button
+              type="submit"
+              id="btnP"
+              class="btn btn-primary"
+              @click.prevent="addPost"
+            >
+              publiez
+            </button>
           </div>
         </form>
       </main>
@@ -69,14 +71,16 @@ export default {
       this.image = this.$refs.image.files[0];
       this.imageUrl = URL.createObjectURL(this.image);
     },
-    addPost() {
+
+    async addPost() {
       const formData = new FormData();
       formData.append("image", this.image);
       formData.append("userId", parseInt(localStorage.getItem("userId")));
       formData.append("content", document.getElementById("content").value);
       console.log("test", formData.get("image"));
       console.log("test", formData.get("content"));
-      axios
+
+      await axios
         .post("http://localhost:3000/api/posts", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -96,13 +100,23 @@ export default {
   float: none;
   margin-top: 1rem;
 }
-h2 {
-  margin: 2rem;
-  text-align: center;
-  font-size: 1.2rem;
+.card-textarea {
+  margin-bottom: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media screen and (max-width: 523px) {
+  .card-textarea {
+    width: 50%;
+  }
+}
+.form-label {
   font-weight: 600;
 }
-#btnP {
-  margin-left: 5rem;
+
+@media screen and (min-width: 768px) {
+  #btnP {
+    margin-left: 5rem;
+  }
 }
 </style>

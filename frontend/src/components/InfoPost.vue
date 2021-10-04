@@ -8,14 +8,24 @@
         })"
         :key="user.id"
       >
-        <img :src="user.imageUrl" class="avatar" alt="profile picture" />
+        <img
+          :src="user.imageUrl || 'https://picsum.photos/300/200?random'"
+          class="avatar"
+          title="photo de profil"
+          alt="profile picture"
+        />
         <span class="card-title">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
       <p v-if="post.content !== 'null'" class="card-text">{{ post.content }}</p>
       <div v-if="post.imageUrl">
-        <img class="card-img" :src="post.imageUrl" alt="post" />
+        <img
+          class="card-img"
+          :src="post.imageUrl"
+          alt="image de la publication"
+          title="image de la publication"
+        />
       </div>
-      <span class="btn-end" v-if="user.id == userId">
+      <span class="btn-end" v-if="user.id == post.userId">
         <button
           class=" btn btn-danger"
           v-bind="post"
@@ -24,50 +34,53 @@
           <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </span>
-      <p class="card-paragraph">Commentaires <i class="fas fa-comment"></i></p>
-
-      <div v-if="comments">
-        <div
-          class="card-comment"
-          v-for="comment in comments.filter((comment) => {
-            return comment.postId == post.id;
-          })"
-          :key="comment.id"
-        >
-          <p
-            v-for="user in users.filter((user) => {
-              return user.id == comment.userId;
+      <button class="btn btn-primary" @click="showComments = !showComments">
+        Commentaires <i class="fas fa-comment"></i>
+      </button>
+      <div v-if="showComments">
+        <div v-if="comments">
+          <div
+            class="card-comment"
+            v-for="comment in comments.filter((comment) => {
+              return comment.postId == post.id;
             })"
-            :key="user.id"
+            :key="comment.id"
           >
-            <img
-              v-if="user.imageUrl == null"
-              :src="'https://picsum.photos/300/200?random'"
-              alt="photo de profil"
-              class=" rouned-circle mr-1 avatar"
-            />
-            <img
-              v-else
-              :src="user.imageUrl"
-              class="avatar"
-              alt="profile picture"
-            />
-            <span class="card-title"
-              >{{ user.firstName }} {{ user.lastName }}</span
+            <p
+              v-for="user in users.filter((user) => {
+                return user.id == comment.userId;
+              })"
+              :key="user.id"
             >
-          </p>
-          <p class="card-description">"{{ comment.content }}"</p>
-          <div v-if="userId == user.id" id="btn-trash">
-            <button
-              class=" btn-secondary "
-              @click.prevent="deleteComment(comment.id)"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+              <img
+                v-if="user.imageUrl == null"
+                :src="'https://picsum.photos/300/200?random'"
+                alt="photo de profil"
+                class=" rouned-circle mr-1 avatar"
+              />
+              <img
+                v-else
+                :src="user.imageUrl"
+                class="avatar"
+                alt="profile picture"
+              />
+              <span class="card-title"
+                >{{ user.firstName }} {{ user.lastName }}</span
+              >
+            </p>
+            <p class="card-description">"{{ comment.content }}"</p>
+            <div v-if="comment.userId == user.id" id="btn-trash">
+              <button
+                class=" btn-secondary "
+                @click.prevent="deleteComment(comment.id)"
+              >
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
         </div>
+        <CreateComment v-bind="post" />
       </div>
-      <CreateComment v-bind="post" />
     </div>
   </div>
 </template>
@@ -82,6 +95,7 @@ export default {
   },
   data() {
     return {
+      showComments: false,
       userId: localStorage.getItem("userId"),
       token: localStorage.getItem("token"),
       users: [],
@@ -93,41 +107,11 @@ export default {
       posts: [],
       comment: {},
       comments: [],
-      content: {},
+      //  content: {},
     };
   },
-  created() {
-    axios
-      .get("http://localhost:3000/api/posts", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + this.token,
-        },
-      })
-      .then((response) => {
-        this.posts = response.data.posts;
-        console.log(this.posts);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios
-      .get("http://localhost:3000/api/comments", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + this.token,
-        },
-      })
-      .then((response) => {
-        this.comments = response.data;
-        console.log(this.comments);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios
+  async created() {
+    await axios
       .get("http://localhost:3000/api/users", {
         headers: {
           "Content-Type": "application/json",
@@ -142,11 +126,41 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    await axios
+      .get("http://localhost:3000/api/posts", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+      })
+      .then((response) => {
+        this.posts = response.data.posts;
+        console.log(this.posts);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    await axios
+      .get("http://localhost:3000/api/comments", {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + this.token,
+        },
+      })
+      .then((response) => {
+        this.comments = response.data;
+        console.log(this.comments);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   methods: {
-    deletePublication(id) {
-      axios
+    async deletePublication(id) {
+      await axios
         .delete(`http://localhost:3000/api/posts/${id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -156,8 +170,8 @@ export default {
         })
         .then(() => this.$router.go(0));
     },
-    deleteComment(id) {
-      axios
+    async deleteComment(id) {
+      await axios
         .delete(`http://localhost:3000/api/comments/${id}`, {
           headers: {
             "Content-Type": "application/json",

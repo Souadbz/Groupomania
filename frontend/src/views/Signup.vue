@@ -75,20 +75,15 @@
         >Se connecter</router-link
       >
     </p>
-    <div>
-      <Footer />
-    </div>
   </div>
 </template>
 
 <script>
-import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import axios from "axios";
 export default {
   name: "Signup",
   components: {
-    Footer,
     Nav,
   },
   data() {

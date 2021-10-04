@@ -57,6 +57,16 @@ export default {
 .blocComment input {
   border: none;
 }
+@media screen and (min-width: 768px) {
+  input {
+    width: 20.5rem;
+  }
+}
+@media screen and (max-width: 410px) {
+  input {
+    width: 8.5rem;
+  }
+}
 input:focus {
   outline: none;
 }

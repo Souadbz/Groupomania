@@ -1,41 +1,42 @@
 <template>
   <div>
-   <NavApp />
+    <NavApp />
+    <h1 class="card-titlepost">partagez vos intérêts avec votre communauté</h1>
     <AddPost />
-    <InfoPost/>
-        <Footer />
+    <InfoPost />
+    <Footer />
   </div>
 </template>
 
 <script>
-
-import NavApp from "../components/NavApp.vue"
-import Footer from "../components/Footer"
+import NavApp from "../components/NavApp.vue";
+import Footer from "../components/Footer";
 import AddPost from "../components/AddPost.vue";
 import InfoPost from "../components/InfoPost.vue";
 
-
-
 export default {
   name: "Posts",
- components: {
-    NavApp, 
+  components: {
+    NavApp,
     AddPost,
     InfoPost,
-     Footer
-    
+    Footer,
   },
- 
+
   data() {
     return {
-      Posts: []
-     }
-     
-     },
-  } 
-     
+      Posts: [],
+    };
+  },
+};
 </script>
 
 <style lang="scss">
-
+.card-titlepost {
+  margin: 1rem;
+  text-align: center;
+  display: block;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+}
 </style>

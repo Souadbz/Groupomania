@@ -1,24 +1,32 @@
- <template>
-<footer>
- <div class="text-center p-3">
+<template>
+  <footer>
+    <div class="text-center p-3">
       <span>© 2021 Copyright : </span>
-      <a href="#" id="lien" role="button" aria-label="se connecter au site groupomania">Groupomania.com</a>
+      <a
+        href="#"
+        id="lien"
+        role="button"
+        aria-label="se connecter au site groupomania"
+        >Groupomania.com</a
+      >
     </div>
-</footer>
-   
+  </footer>
 </template>
 
 <script>
 export default {
-  name: 'Footer',
-  }
+  name: "Footer",
+};
 </script>
 <style scoped lang="scss">
-footer{
+footer {
+  height: auto;
+  width: 100%;
   background-color: #122441;
-  margin-top: 13rem;
+  margin-top: 15rem;
 
-  span, #lien{
+  span,
+  #lien {
     color: white;
   }
 }

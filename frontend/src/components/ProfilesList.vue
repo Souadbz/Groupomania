@@ -25,7 +25,7 @@
         class="btn btn-danger"
         id="btn-card"
         v-bind="user"
-        @click.prevent="deleteUser(users.id)"
+        @click.prevent="deleteUser($attrs.id)"
       >
         Supprimer <i class="fa fa-trash" aria-hidden="true"></i>
       </button>

@@ -3,8 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-10">
         <div class="col-12 col-gestion">
-          <h1 class="my-2 btn btn-block btn-info font-weight-bold">
-            Gérer votre compte :
+          <h1 class="col-titleprofile">
+            Gérer votre compte
           </h1>
         </div>
         <section class="row">
@@ -34,7 +34,6 @@
               <div>
                 <form
                   id="form"
-                  class="mt-5"
                   enctype="multipart/form-data"
                   @submit.prevent="updatePicture()"
                 >
@@ -58,11 +57,15 @@
                       />
                     </div>
                   </div>
-                  <div class="mx-auto w-50 mb-3">
-                    <label for="image"></label>
+                  <div
+                    class="card-body d-flex flex-column justify-content-between"
+                  >
+                    <label class="text-center label" for="image"
+                      ><strong>Choisir ma photo de profil</strong></label
+                    >
                     <input
                       type="file"
-                      class="form-control-file form-control-sm"
+                      class="form-control"
                       name="image"
                       id="image"
                       accept="image/*"
@@ -121,8 +124,8 @@ export default {
     };
   },
 
-  created() {
-    axios
+  async created() {
+    await axios
       .get(`http://localhost:3000/api/users/${this.userId}`, {
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +145,7 @@ export default {
       this.image = this.$refs.image.files[0];
       this.imageUrl = URL.createObjectURL(this.image);
     },
-    updatePicture() {
+    async updatePicture() {
       const formData = new FormData();
       formData.append("userId", parseInt(localStorage.getItem("userId")));
       formData.append("image", this.image);
@@ -152,7 +155,7 @@ export default {
       console.log(this.imageUrl);
       console.log("test-récup", formData.get("imageUrl"));
 
-      axios
+      await axios
         .put(`http://localhost:3000/api/users/${this.userId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -165,8 +168,8 @@ export default {
           this.image = response.data.image;
         });
     },
-    deleteMyAccount(id) {
-      axios
+    async deleteMyAccount(id) {
+      await axios
         .delete(`http://localhost:3000/api/users/${id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -186,6 +189,20 @@ export default {
 <style>
 .col-gestion {
   text-align: center;
+}
+.col-titleprofile {
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1.5rem !important;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  background-color: #0dcaf0;
+  border-color: #0dcaf0;
+  text-align: center;
+  vertical-align: middle;
 }
 .card-header-info {
   padding: 0.5rem 1rem;
@@ -208,5 +225,8 @@ export default {
   margin-left: 0.5rem;
   color: blue;
   font-weight: 400;
+}
+.label {
+  margin-bottom: 1rem;
 }
 </style>
