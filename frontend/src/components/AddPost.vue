@@ -25,13 +25,16 @@
             ></textarea>
           </div>
           <div class="card-body d-flex flex-column justify-content-between">
+            <label for="image" class="form-control-label"
+              ><strong>Choisissez votre image</strong></label
+            ><br />
             <input
               type="file"
               class="form-control"
               name="image"
               id="image"
               ref="image"
-              aria-describedby="addFiles"
+              aria-describedby="image"
               @change="selectFile()"
             />
           </div>

@@ -22,7 +22,7 @@
           class="card-img"
           :src="post.imageUrl"
           alt="image de la publication"
-          title="image de la publication"
+          title="image du post d'un utilisateur"
         />
       </div>
       <span class="btn-end" v-if="user.id == post.userId">
@@ -55,7 +55,7 @@
               <img
                 v-if="user.imageUrl == null"
                 :src="'https://picsum.photos/300/200?random'"
-                alt="photo de profil"
+                alt="photo de profil provisoire"
                 class=" rouned-circle mr-1 avatar"
               />
               <img

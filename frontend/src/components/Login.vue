@@ -1,8 +1,8 @@
 <template>
   <div class="container" id="content">
     <div><Nav /></div>
-    <p class="title">Bienvenue sur Groupomania</p>
-    <h1 class="title">Votre Compte</h1>
+    <h1 class="title">Bienvenue sur Groupomania</h1>
+    <h2 class="title">Votre Compte</h2>
     <form class="form-row" @submit.prevent="loginAccount()" method="post">
       <div v-if="error" class="alert alert-danger" role="altert">
         {{ error }}
@@ -84,9 +84,15 @@ export default {
   text-align: center;
   font-size: 2rem;
 }
-h1 {
+h1,
+h2 {
   text-align: center;
+}
+h1 {
   font-size: 2rem;
+}
+h2 {
+  font-size: 1.5rem;
 }
 form {
   max-width: 50rem;
@@ -105,12 +111,12 @@ form {
   .btn-primary {
     margin: 1rem;
     width: 50%;
-    background-color: red;
-    border-color: red;
+    background-color: #8b0000;
+    border-color: #8b0000;
   }
   .btn:hover {
-    border-color: green;
-    background-color: green;
+    border-color: #006400;
+    background-color: #006400;
   }
 }
 .connect {

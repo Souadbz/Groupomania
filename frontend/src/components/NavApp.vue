@@ -34,7 +34,7 @@
           to="/administrateur"
         >
           <li class="nav-item" type="button" arial-label="voir son compte">
-            Admin <i class="fas fa-cogs"></i>
+            <i class="fas fa-cogs"></i>
           </li>
         </router-link>
         <li class="nav-item">
@@ -83,5 +83,8 @@ export default {
 }
 #btn-logout {
   margin: 0 0.5rem;
+}
+.fas {
+  font-size: 2rem;
 }
 </style>

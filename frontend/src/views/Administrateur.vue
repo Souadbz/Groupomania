@@ -172,7 +172,7 @@ export default {
 }
 .description {
   margin: 1rem 0;
-  color: red;
+  color: #8b0000;
 }
 .btn-profils,
 .btn-posts,

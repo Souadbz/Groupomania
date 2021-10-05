@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Login />
-    <p class="connect">
+    <h3 class="connect">
       Vous n'avez pas un compte ?
       <router-link
         to="/signup"
@@ -10,7 +10,7 @@
         aria-label="s'inscrire"
         >S'inscrire</router-link
       >
-    </p>
+    </h3>
   </div>
 </template>
 

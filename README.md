@@ -47,6 +47,7 @@ SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 - Framework **Vue.js**
 - **Axios**
 - **Bootstrap**
+- **WCAG**
 
 ### Installation
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
