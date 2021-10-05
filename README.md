@@ -16,7 +16,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - **Api RESET**
 - sécurité **RGPD et OSWAP**
 
-## Installation
+### Installation
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
 - chargez le package `nodemon` : `npm install -g nodemon`
 - Configure `config/config.json`
@@ -24,7 +24,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - lancez le serveur: `nodemon server`
 - Exécution de l’api sur http://localhost:3000
 
-## Indication
+#### Indication
 Avant d'accéder à l'application, vous devrez créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend.
 Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
 
