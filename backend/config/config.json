@@ -9,7 +9,7 @@
   "test": {
     "username": "DB_USERNAME",
     "password": "DB_PASSWORD",
-    "database":"groupomania" ,
+    "database":"DB_NAME" ,
     "host": "DB_HOST",
     "dialect": "mysql"
   },
