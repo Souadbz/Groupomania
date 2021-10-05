@@ -16,7 +16,8 @@ exports.createComment = (req, res, next) => {
                 message: 'votre commentaire est créé !'
             }))
             .catch(error => res.status(400).json({
-                error
+                error,
+                message: 'impossible de créer un commentaire'
             }))
     },
 

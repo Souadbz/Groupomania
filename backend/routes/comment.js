@@ -11,11 +11,13 @@ const commentCtrl = require('../controllers/comments');
 /*** Requête POST pour créer un nouveau commentaire ***/
 router.post('/comments', commentCtrl.createComment);
 
+/*** Requête GET pour récupérer les commentaires ***/
+router.get('/comments', auth, commentCtrl.getComments);
+
 /*** Requête DELETE pour supprimer un commentaire posté ***/
 router.delete('/comments/:id', auth, commentCtrl.deleteComment);
 
-/*** Requête GET pour récupérer les commentaires ***/
-router.get('/comments', auth, commentCtrl.getComments);
+
 
 
 

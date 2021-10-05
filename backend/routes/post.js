@@ -15,7 +15,7 @@ const multer = require('../middleware/multer-config');
 /*** Requête POST pour poster un nouveau post***/
 router.post("/posts", auth, multer, postCtrl.createPost);
 
-/*** Requête PUT pour modifier un posté ***/
+/*** Requête PUT pour modifier un post ***/
 router.put("/posts/:id", auth, multer, postCtrl.updatePost);
 
 /*** Requête DELETE pour supprimer un post ***/

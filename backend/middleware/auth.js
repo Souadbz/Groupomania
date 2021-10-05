@@ -1,18 +1,14 @@
-/*** importer le package jsonwebtoken pour vérifier les tokens ***/
-
-const jwt = require('jsonwebtoken');
-require("dotenv").config();
-
 const getAuthUserIdToken = require("../utils/getAuthUserId");
+/*** l'application du middleware à touts les routes pour les sécuriser ***/
 module.exports = (req, res, next) => {
+    /*** récupèrer le userId de la requête  ***/
     const userId = req.body.userId;
-    const authorization = req.headers.authorization;
-
-    console.log(req.body.userId)
-
+    /*** récupèrer les headers de la requête authorization ***/
+    const reqAuthoriztion = req.headers.authorization;
     try {
-        if (!authorization) throw new Error("Problème auth");
-        if (userId && userId !== getAuthUserIdToken(req)) throw new Error("userId invalide");
+        if (!reqAuthoriztion) throw new Error("Problème auth");
+        /*** vérification du userId envoyé avec la requête qui doit correspondre au userId encodé du token ***/
+        if (userId && userId !== getAuthUserIdToken(req)) throw new Error("userId est invalide");
         next();
     } catch (error) {
         res.status(401).json({

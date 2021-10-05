@@ -1,6 +1,6 @@
 const express = require('express'); /*** importer l'express ***/
 const bodyParser = require('body-parser'); /*** importer le bodyParser ***/
-//const mysql = require('mysql2');
+const mysql = require('mysql2');
 /*** se connecter à la base de données MySQL ***/
 const connection = require('./database/mysql.config');
 const path = require("path");
