@@ -10,13 +10,8 @@
         </p>
         <p class="card-description description">FAITES LE BON CHOIX</p>
         <div class="card-btn">
-          <button
-            class="btn btn-secondary btn-profils"
-            @click="profilesUsers = !profilesUsers"
-          >
-            Comptes
-          </button>
-          <div v-if="profilesUsers">
+          <h2 class="card-title-profiles">1-Les comptes personnels</h2>
+          <div>
             <div
               class=" card-profilesList"
               v-for="user in users"
@@ -25,13 +20,10 @@
               <ProfilesList v-bind="user" />
             </div>
           </div>
-          <button
-            class="btn btn-secondary btn-posts"
-            @click="postUsers = !postUsers"
-          >
-            Publications
-          </button>
-          <div v-if="postUsers">
+          <h2 class="card-title-profiles">
+            2-Publications
+          </h2>
+          <div>
             <div
               class="card-postsList"
               v-for="post in posts.slice().reverse()"
@@ -94,13 +86,10 @@ export default {
   data() {
     return {
       token: localStorage.getItem("token"),
-      postUsers: false,
-      profilesUsers: false,
       users: [],
       user: {},
       posts: [],
       post: {},
-      // content: {},
     };
   },
   async created() {
@@ -174,11 +163,17 @@ export default {
   margin: 1rem 0;
   color: #8b0000;
 }
-.btn-profils,
-.btn-posts,
 .card-profilesList,
 .card-postsList {
   margin: 1rem auto;
+}
+.card-title-profiles {
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  text-decoration: underline;
+  background-color: #ffd700;
+  border: 1px solid #ffd700;
 }
 .card-profilesList,
 .card-postsList {
