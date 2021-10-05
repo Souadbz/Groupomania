@@ -8,19 +8,33 @@ const User = db.User;
 const getAuthUserId = require("../utils/getAuthUserId");
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
-    Post.create({
-            userId: getAuthUserId(req),
-            content: req.body.content,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        })
-        .then(() => res.status(201).json({
-            message: 'post créé !'
-        }))
-        .catch((error) => res.status(400).json({
-            error,
-            message: 'Vous ne pouvez pas publier un post'
-        }))
-
+    if (req.file) {
+        Post.create({
+                userId: getAuthUserId(req),
+                content: req.body.content,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            })
+            .then(() => res.status(201).json({
+                message: 'post créé !'
+            }))
+            .catch((error) => res.status(400).json({
+                error,
+                message: 'Vous ne pouvez pas publier un post'
+            }))
+    } else {
+        Post.create({
+                userId: getAuthUserId(req),
+                content: req.body.content,
+                imageUrl: null,
+            })
+            .then(() => res.status(201).json({
+                message: 'post créé !'
+            }))
+            .catch((error) => res.status(400).json({
+                error,
+                message: 'Vous ne pouvez pas publier un post'
+            }))
+    }
 }
 /*** Modifier une publication ***/
 exports.updatePost = (req, res, next) => {
@@ -71,8 +85,22 @@ exports.deletePost = (req, res, next) => {
                     message: 'post introuvable'
                 })
             };
-            const filename = post.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
+            if (req.file) {
+                const filename = post.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    post.destroy({
+                            where: {
+                                id: req.params.id
+                            }
+                        })
+                        .then(() => res.status(200).json({
+                            message: 'le post est bien supprimé !'
+                        }))
+                        .catch(error => res.status(400).json({
+                            error
+                        }))
+                })
+            } else {
                 post.destroy({
                         where: {
                             id: req.params.id
@@ -84,7 +112,7 @@ exports.deletePost = (req, res, next) => {
                     .catch(error => res.status(400).json({
                         error
                     }))
-            })
+            }
         })
         .catch(error => res.status(500).json({
             error,
@@ -133,8 +161,22 @@ exports.adminDeletePost = (req, res, next) => {
             }
         })
         .then(post => {
-            const filename = post.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
+            if (req.file) {
+                const filename = post.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    post.destroy({
+                            where: {
+                                id: req.params.id
+                            }
+                        })
+                        .then(() => res.status(200).json({
+                            message: 'Vous avez supprimé la publication du user'
+                        }))
+                        .catch(error => res.status(400).json({
+                            error
+                        }))
+                })
+            } else {
                 post.destroy({
                         where: {
                             id: req.params.id
@@ -146,6 +188,6 @@ exports.adminDeletePost = (req, res, next) => {
                     .catch(error => res.status(400).json({
                         error
                     }))
-            })
+            }
         });
 };
