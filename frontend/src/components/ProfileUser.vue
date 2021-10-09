@@ -129,6 +129,7 @@ export default {
       .get(`http://localhost:3000/api/users/${this.userId}`, {
         headers: {
           Authorization: "Bearer " + this.token,
+          "Content-Type": "application/json",
         },
       })
       .then((response) => {
@@ -157,6 +158,7 @@ export default {
         .put(`http://localhost:3000/api/users/${this.userId}`, formData, {
           headers: {
             Authorization: "Bearer " + this.token,
+            "Content-Type": "multipart/form-data",
           },
         })
         .then((response) => {
