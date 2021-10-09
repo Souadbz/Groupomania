@@ -14,7 +14,7 @@
               style="float:none;"
             >
               <div class="card-header">
-                <div class="row justify-content-around" v-bind="user">
+                <div v-bind="user" class="row justify-content-around">
                   <div class="card-header-info">Vos informations</div>
                   <p class="text">
                     Prénom:
@@ -128,8 +128,6 @@ export default {
     await axios
       .get(`http://localhost:3000/api/users/${this.userId}`, {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
           Authorization: "Bearer " + this.token,
         },
       })
@@ -158,8 +156,6 @@ export default {
       await axios
         .put(`http://localhost:3000/api/users/${this.userId}`, formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Accept: "multipart/form-data",
             Authorization: "Bearer " + this.token,
           },
         })
@@ -169,18 +165,23 @@ export default {
         });
     },
     async deleteMyAccount(id) {
-      await axios
-        .delete(`http://localhost:3000/api/users/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + this.token,
-          },
-        })
-        .then(() => {
-          localStorage.clear();
-          this.$router.push("/");
-        });
+      let confirmDeleteUser = confirm(
+        " la suppresion du compte est irréversible, voulez-vous vraiment supprimer le compte ?"
+      );
+      if (confirmDeleteUser == true) {
+        await axios
+          .delete(`http://localhost:3000/api/users/${id}`, {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          })
+          .then(() => {
+            localStorage.clear();
+            this.$router.push("/");
+          });
+      } else {
+        return;
+      }
     },
   },
 };
