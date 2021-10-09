@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" v-bind="$attrs">
+    <div v-bind="$attrs" class="card">
       <div class="card-header-info">Informations personnelles</div>
       <p class="text">
         Prénom:
@@ -48,16 +48,21 @@ export default {
     };
   },
   methods: {
-    deleteUser(id) {
-      axios
-        .delete(`http://localhost:3000/api/admin/delete/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + this.token,
-          },
-        })
-        .then(() => this.$router.go(0));
+    async deleteUser(id) {
+      let confirmDeleteUser = confirm(
+        " la suppresion du compte est irréversible, voulez-vous vraiment supprimer le compte ?"
+      );
+      if (confirmDeleteUser == true) {
+        await axios
+          .delete(`http://localhost:3000/api/admin/delete/${id}`, {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }) /**** actualiser la page, parcourir zéro page dans l'histoire(windows.history) ***/
+          .then(() => this.$router.go(0));
+      } else {
+        return;
+      }
     },
   },
 };
