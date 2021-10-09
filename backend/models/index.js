@@ -48,7 +48,7 @@ db.Comment.belongsTo(db.Post, {
 });
 
 sequelize.authenticate()
-  .then(() => console.log('Connexion réussie !'))
+  .then(() => console.log('Connexion à mysql réussie !'))
   .catch(error => console.log('Connexion échouée:' + error))
 
 
