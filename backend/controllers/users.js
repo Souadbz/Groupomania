@@ -36,7 +36,7 @@ exports.signup = async (req, res, next) => {
         }
         /*** appeler bycrpt et hasher le mot de passe, l'algorithme fera 10 tours***/
         bcrypt.hash(req.body.password, 10)
-            /*** Création de l'user ***/
+            /*** Création du user ***/
             .then(hash => {
 
                 User.create({
@@ -83,6 +83,7 @@ exports.signup = async (req, res, next) => {
 /***POST/api/auth/login /connecter les utilisateurs existants ***/
 exports.login = (req, res, next) => {
     try {
+        /**** récupérer le user de la base de données avec findOne ***/
         User.findOne({
                 where: {
                     email: req.body.email
@@ -93,7 +94,7 @@ exports.login = (req, res, next) => {
                     return res.status(404).json({
                         message: 'Utilisateur introuvable'
                     });
-                }
+                } /*** comparer le mot de passe avec bcrypt ***/
                 bcrypt.compare(req.body.password, user.password)
                     .then((valid) => {
                         if (!valid) {
@@ -193,7 +194,7 @@ exports.deleteProfile = (req, res, next) => {
                     error
                 })
             }
-
+            /*** supprimer le user avec la fonction destroy ***/
             user.destroy({
                     where: {
                         id: req.params.id
@@ -254,7 +255,7 @@ exports.getAllProfiles = (req, res, next) => {
 };
 
 exports.adminDeleteProfileUser = (req, res, next) => {
-
+    /*** supprimer le compte d'un user avec destroy ***/
     User.destroy({
             where: {
                 id: req.params.id
