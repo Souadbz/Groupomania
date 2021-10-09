@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- On récupére les posts des plus récents aux plus anciens -->
     <div class="card" :key="post.id" v-for="post in posts.slice().reverse()">
       <div
         class="card-header"
@@ -68,7 +69,7 @@
                 >{{ user.firstName }} {{ user.lastName }}</span
               >
             </p>
-            <p class="card-description">"{{ comment.content }}"</p>
+            <p class="card-description comment">{{ comment.content }}</p>
             <div v-if="comment.userId == user.id" id="btn-trash">
               <button
                 class=" btn-secondary "
@@ -107,15 +108,12 @@ export default {
       posts: [],
       comment: {},
       comments: [],
-      //  content: {},
     };
   },
   async created() {
     await axios
       .get("http://localhost:3000/api/users", {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
           Authorization: "Bearer " + this.token,
         },
       })
@@ -129,8 +127,6 @@ export default {
     await axios
       .get("http://localhost:3000/api/posts", {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
           Authorization: "Bearer " + this.token,
         },
       })
@@ -144,8 +140,6 @@ export default {
     await axios
       .get("http://localhost:3000/api/comments", {
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
           Authorization: "Bearer " + this.token,
         },
       })
@@ -160,26 +154,36 @@ export default {
 
   methods: {
     async deletePublication(id) {
-      await axios
-        .delete(`http://localhost:3000/api/posts/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + this.token,
-          },
-        })
-        .then(() => this.$router.go(0));
+      let confirmDeletePost = confirm(
+        "voulez-vous vraiment supprimer votre publication ?"
+      );
+      if (confirmDeletePost == true) {
+        await axios
+          .delete(`http://localhost:3000/api/posts/${id}`, {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }) /**** actualiser la page parcourir zéro page dans l'histoire(windows.history) ***/
+          .then(() => this.$router.go(0));
+      } else {
+        return;
+      }
     },
     async deleteComment(id) {
-      await axios
-        .delete(`http://localhost:3000/api/comments/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: "Bearer " + this.token,
-          },
-        })
-        .then(() => this.$router.go(0));
+      let confirmDeleteComment = confirm(
+        "voulez-vous vraiment supprimer votre commentaire ?"
+      );
+      if (confirmDeleteComment == true) {
+        await axios
+          .delete(`http://localhost:3000/api/comments/${id}`, {
+            headers: {
+              Authorization: "Bearer " + this.token,
+            },
+          }) /**** actualiser la page parcourir zéro page dans l'histoire(windows.history) ***/
+          .then(() => this.$router.go(0));
+      } else {
+        return;
+      }
     },
   },
 };
@@ -225,5 +229,8 @@ export default {
 }
 input {
   margin-bottom: 0;
+}
+.comment {
+  margin-left: 0.5rem;
 }
 </style>
