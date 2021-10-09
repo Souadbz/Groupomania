@@ -20,7 +20,9 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
 - chargez le package `nodemon` : `npm install -g nodemon`
 - Configure `config/config.json`
-- Run `sequelize db:create && sequelize db:migrate`
+- `npm install mysql2`
+- `npm install sequelize`
+- `sequelize db:create && sequelize db:migrate`
 - lancez le serveur: `nodemon server`
 - Exécution de l’api sur http://localhost:3000
 
