@@ -2,14 +2,6 @@
   <div>
     <NavApp />
     <ProfileUser />
-    <div class="retour">
-      <router-link
-        to="/posts"
-        alt="retour à la page acceuil"
-        title="retour à la page acceuil"
-        ><i class="fas fa-hand-point-left"></i> Retour à l'Acceuil</router-link
-      >
-    </div>
   </div>
 </template>
 
