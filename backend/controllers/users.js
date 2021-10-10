@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt');
 require("dotenv").config();
 
-const getAuthUserId = require('../utils/getAuthUserId');
+const getAuthUserId = require('../middleware/getAuthUserId');
 /*** modèle  ***/
 const db = require('../models')
 const User = db.User;
