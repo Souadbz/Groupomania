@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 /*** la récupération de  la configuration d'authentification de JsonWebToken ***/
 const auth = require("../middleware/auth");
-const authAdmin = require('../utils/authAdmin')
+const authAdmin = require('../middleware/authAdmin')
 
 /*** importer le controllers post pour associer les fonctions aux routes***/
 const postCtrl = require("../controllers/posts");
