@@ -1,4 +1,4 @@
-const getAuthUserId = require("../utils/getAuthUserId");
+const getAuthUserId = require("../middleware/getAuthUserId");
 
 /*** importer les modèles ***/
 const db = require('../models')
