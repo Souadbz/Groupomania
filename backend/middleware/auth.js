@@ -1,4 +1,4 @@
-const getAuthUserIdToken = require("../utils/getAuthUserId");
+const getAuthUserIdToken = require("../middleware/getAuthUserId");
 /*** l'application du middleware à touts les routes pour les sécuriser ***/
 module.exports = (req, res, next) => {
     /*** récupèrer le userId de la requête  ***/
