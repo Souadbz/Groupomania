@@ -5,7 +5,7 @@ const fs = require('fs');
 let db = require('../models');
 const Post = db.Post
 const User = db.User;
-const getAuthUserId = require("../utils/getAuthUserId");
+const getAuthUserId = require("../middleware/getAuthUserId");
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
     if (req.file) {
