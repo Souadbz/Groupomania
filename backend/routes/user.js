@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 /*** la récupération de  la configuration d'authentification de JsonWebToken ***/
 const auth = require('../middleware/auth');
-const authAdmin = require('../utils/authAdmin')
+const authAdmin = require('../middleware/authAdmin')
 /*** importer multer pour la gestion des images ***/
 const multer = require('../middleware/multer-config');
 /*** importer le controllers users pour associer les fonctions aux routes ***/
