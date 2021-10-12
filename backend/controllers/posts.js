@@ -8,6 +8,12 @@ const User = db.User;
 const getAuthUserId = require("../middleware/getAuthUserId");
 /***  Créer un post ***/
 exports.createPost = (req, res, next) => {
+    if (!req.body.content) {
+        res.status(400).send({
+            message: "impossible de publier un message vide !"
+        });
+        return
+    }
     if (req.file) {
         Post.create({
                 userId: getAuthUserId(req),
@@ -46,7 +52,7 @@ exports.updatePost = (req, res, next) => {
         })
         .then(post => {
             if (post.userId !== getAuthUserId(req)) {
-                return res.status(401).json({
+                return res.status(404).json({
                     error
                 })
             };
