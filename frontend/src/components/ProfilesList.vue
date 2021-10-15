@@ -59,8 +59,11 @@ export default {
               Authorization: "Bearer " + this.token,
               "Content-Type": "application/json",
             },
-          }) /**** actualiser la page, parcourir zéro page dans l'histoire(windows.history) ***/
-          .then(() => this.$router.go(0));
+          })
+          .then((response) => {
+            console.log(response.data);
+            window.location.reload();
+          });
       } else {
         return;
       }
