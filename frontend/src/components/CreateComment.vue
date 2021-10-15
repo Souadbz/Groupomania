@@ -13,7 +13,7 @@
           type="submit"
           class="btn btn-primary"
           v-bind="$attrs"
-          @click.prevent="postComment()"
+          @click="postComment()"
           ref="comment"
         >
           <i class="far fa-paper-plane"></i>
