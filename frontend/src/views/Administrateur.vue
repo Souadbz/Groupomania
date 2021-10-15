@@ -38,7 +38,7 @@
                 :key="user.id"
               >
                 <img
-                  :src="user.imageUrl"
+                  :src="user.imageUrl || 'https://picsum.photos/300/200?random'"
                   class="avatar"
                   alt="profile picture"
                 />
@@ -99,9 +99,11 @@ export default {
         this.users = response.data.users;
         console.log(this.users);
       })
-      .catch((error) => {
+      .catch(function(error) {
+        alert(error);
         console.log(error);
       });
+
     await axios
       .get("http://localhost:3000/api/posts", {
         headers: {
@@ -112,7 +114,8 @@ export default {
         this.posts = response.data.posts;
         console.log(this.posts);
       })
-      .catch((error) => {
+      .catch(function(error) {
+        alert(error);
         console.log(error);
       });
   },
@@ -124,8 +127,11 @@ export default {
           headers: {
             Authorization: "Bearer " + this.token,
           },
-        }) /**** actualiser la page parcourir zéro page dans l'histoire(windows.history) ***/
-        .then(() => this.$router.go(0));
+        })
+        .then(() => {
+          let i = this.posts.map((data) => data.id).indexOf(id);
+          this.posts.splice(i, 1);
+        });
     },
   },
 };
