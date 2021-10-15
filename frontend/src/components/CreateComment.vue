@@ -10,10 +10,10 @@
       />
       <span id="btn-publication">
         <button
-          v-bind="$attrs"
           type="submit"
           class="btn btn-primary"
-          @click="postComment()"
+          v-bind="$attrs"
+          @click.prevent="postComment()"
           ref="comment"
         >
           <i class="far fa-paper-plane"></i>
@@ -30,7 +30,6 @@ export default {
     return {
       userId: localStorage.getItem("userId"),
       token: localStorage.getItem("token"),
-      post: {},
       postId: "",
       content: "",
       comment: "",
@@ -38,16 +37,22 @@ export default {
   },
   methods: {
     postComment() {
-      axios.post("http://localhost:3000/api/comments", {
-        userId: localStorage.getItem("userId"),
-        postId: this.$refs.comment.id,
-        content: this.$refs.content.value,
+      axios
+        .post("http://localhost:3000/api/comments", {
+          userId: localStorage.getItem("userId"),
+          postId: this.$refs.comment.id,
+          content: this.$refs.content.value,
 
-        headers: {
-          Authorization: "Bearer " + this.token,
-          "Content-Type": "application/json",
-        },
-      });
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + this.token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          window.location.reload();
+        })
+        .catch((error) => console.log(error));
     },
   },
 };
