@@ -11,6 +11,8 @@
       <span id="btn-publication">
         <button
           type="submit"
+          title="créer"
+          aria-label="créer un commentaire"
           class="btn btn-primary"
           v-bind="$attrs"
           @click="postComment()"

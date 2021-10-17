@@ -143,7 +143,7 @@ exports.getOnePost = (req, res, next) => {
 };
 /***  Afficher les posts ***/
 exports.getAllPosts = (req, res, next) => {
-    /*** on récupère tout les posts ***/
+    /*** on récupère tous les posts ***/
     Post.findAll({
             include: [{
                 model: User,

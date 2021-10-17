@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user.isAdmin || userId">
     <!-- On récupére les posts des plus récents aux plus anciens -->
     <div class="card" :key="post.id" v-for="post in posts.slice().reverse()">
       <div
@@ -29,6 +29,8 @@
       <span class="btn-end" v-if="user.id == post.userId">
         <button
           class=" btn btn-danger"
+          title="supprimer"
+          aria-label="bouton supprimer"
           v-bind="post"
           @click.prevent="deletePublication(post.id)"
         >
@@ -57,6 +59,7 @@
                 v-if="user.imageUrl == null"
                 :src="'https://picsum.photos/300/200?random'"
                 alt="photo de profil provisoire"
+                title="photo de profil"
                 class=" rouned-circle mr-1 avatar"
               />
               <img
@@ -64,6 +67,7 @@
                 :src="user.imageUrl"
                 class="avatar"
                 alt="profile picture"
+                title="picture profile"
               />
               <span class="card-title"
                 >{{ user.firstName }} {{ user.lastName }}</span
@@ -73,6 +77,8 @@
             <div v-if="comment.userId == user.id" id="btn-trash">
               <button
                 class=" btn-secondary "
+                title="supprimer le commentaire"
+                aria-label="bouton supprimer un commentaire"
                 @click.prevent="deleteComment(comment.id)"
               >
                 <i class="fa fa-trash" aria-hidden="true"></i>

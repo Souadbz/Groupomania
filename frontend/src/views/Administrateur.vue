@@ -26,9 +26,9 @@
           <div>
             <!-- On récupére les posts des plus récents aux plus anciens -->
             <div
+              :key="post.id"
               class="card-postsList"
               v-for="post in posts.slice().reverse()"
-              :key="post.id"
             >
               <div
                 class="card-header"
