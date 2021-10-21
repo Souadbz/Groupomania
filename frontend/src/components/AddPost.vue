@@ -72,13 +72,12 @@ export default {
       error: "",
     };
   },
-
   methods: {
     selectFile() {
       this.image = this.$refs.image.files[0];
       this.imageUrl = URL.createObjectURL(this.image);
     },
-
+    /*** Créer une nouvelle publication ***/
     async addPost() {
       const formData = new FormData();
       formData.append("image", this.image);
@@ -99,7 +98,7 @@ export default {
           })
 
           .then((response) => {
-            /*** Si réponse ok, actualisation la page pour affichage le dernier post **/
+            /*** Si réponse ok, actualisation de la page pour affichage le dernier post **/
             if (response) {
               console.log(response.data);
               window.location.reload();

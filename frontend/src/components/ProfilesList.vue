@@ -16,9 +16,18 @@
       </p>
       <div>
         <img
-          :src="$attrs.imageUrl || 'https://picsum.photos/300/200?random'"
-          alt="photo de profil"
+          v-if="$attrs.imageUrl == null"
+          src="../assets/icon-profil.png"
+          alt="photo de profil provisoire"
+          title="photo de profil"
           class=" rouned-circle mr-1 avatar"
+        />
+        <img
+          v-else
+          :src="$attrs.imageUrl"
+          class="avatar"
+          alt="profile picture"
+          title="picture profile"
         />
       </div>
       <button
@@ -43,6 +52,7 @@ export default {
       token: localStorage.getItem("token"),
       users: [],
       user: {
+        id: localStorage.getItem("userId"),
         isAdmin: localStorage.getItem("isAdmin"),
       },
     };

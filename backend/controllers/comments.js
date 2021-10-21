@@ -18,7 +18,10 @@ exports.createComment = (req, res, next) => {
                 content: req.body.content
             })
             .then(() => res.status(201).json({
-                message: 'votre commentaire est créé !'
+                message: 'votre commentaire est créé !',
+                userId: req.body.userId,
+                postId: req.body.postId,
+                content: req.body.content
             }))
             .catch(error => res.status(400).json({
                 error,

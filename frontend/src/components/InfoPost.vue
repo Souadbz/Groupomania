@@ -10,10 +10,18 @@
         :key="user.id"
       >
         <img
-          :src="user.imageUrl || 'https://picsum.photos/300/200?random'"
-          class="avatar"
+          v-if="user.imageUrl == null"
+          src="../assets/icon-profil.png"
+          alt="photo de profil provisoire"
           title="photo de profil"
+          class="avatar"
+        />
+        <img
+          v-else
+          :src="user.imageUrl"
+          class="avatar"
           alt="profile picture"
+          title="picture profile"
         />
         <span class="card-title">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
@@ -57,7 +65,7 @@
             >
               <img
                 v-if="user.imageUrl == null"
-                :src="'https://picsum.photos/300/200?random'"
+                src="../assets/icon-profil.png"
                 alt="photo de profil provisoire"
                 title="photo de profil"
                 class=" rouned-circle mr-1 avatar"
@@ -86,7 +94,8 @@
             </div>
           </div>
         </div>
-        <CreateComment v-bind="post" />
+
+        <CreateComment v-bind="post" @postCommentResponse="getComments" />
       </div>
     </div>
   </div>
@@ -205,6 +214,23 @@ export default {
       } else {
         return;
       }
+    },
+    async getComments() {
+      await axios
+        .get("http://localhost:3000/api/comments", {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          this.comments = response.data;
+          console.log(this.comments);
+        })
+        .catch(function(error) {
+          alert(error);
+          console.log(error);
+        });
     },
   },
 };

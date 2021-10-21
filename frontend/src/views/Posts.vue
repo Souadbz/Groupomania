@@ -25,7 +25,8 @@ export default {
 
   data() {
     return {
-      Posts: [],
+      posts: [],
+      post: {},
     };
   },
 };

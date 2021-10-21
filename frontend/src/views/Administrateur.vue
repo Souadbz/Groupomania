@@ -38,9 +38,18 @@
                 :key="user.id"
               >
                 <img
-                  :src="user.imageUrl || 'https://picsum.photos/300/200?random'"
+                  v-if="user.imageUrl == null"
+                  src="../assets/icon-profil.png"
+                  alt="photo de profil provisoire"
+                  title="photo de profil"
+                  class="avatar"
+                />
+                <img
+                  v-else
+                  :src="user.imageUrl"
                   class="avatar"
                   alt="profile picture"
+                  title="picture profile"
                 />
                 <span class="card-title2"
                   >{{ user.firstName }} {{ user.lastName }}</span

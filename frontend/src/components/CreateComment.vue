@@ -15,7 +15,7 @@
           aria-label="créer un commentaire"
           class="btn btn-primary"
           v-bind="$attrs"
-          @click="postComment()"
+          @click.prevent="postComment()"
           ref="comment"
         >
           <i class="far fa-paper-plane"></i>
@@ -34,7 +34,8 @@ export default {
       token: localStorage.getItem("token"),
       postId: "",
       content: "",
-      comment: "",
+      comment: {},
+      comments: [],
     };
   },
   methods: {
@@ -50,11 +51,14 @@ export default {
             Authorization: "Bearer " + this.token,
           },
         })
-        .then((response) => {
-          console.log(response.data);
-          window.location.reload();
+
+        .then(() => {
+          this.$emit("postCommentResponse");
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+        });
+      this.$refs.content.value = "";
     },
   },
 };

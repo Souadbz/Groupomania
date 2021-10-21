@@ -43,7 +43,7 @@
                       class="dropdown text-center"
                     >
                       <img
-                        :src="'https://picsum.photos/300/200?random'"
+                        src="../assets/icon-profil.png"
                         alt="photo de profil"
                         class=" rouned-circle mr-1 avatar"
                       />
