@@ -235,8 +235,8 @@ export default {
           console.log(error);
         });
     },
-    getPosts() {
-      axios
+    async getPosts() {
+      await axios
         .get("http://localhost:3000/api/posts", {
           headers: {
             Authorization: "Bearer " + this.token,

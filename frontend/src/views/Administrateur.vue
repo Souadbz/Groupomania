@@ -145,8 +145,8 @@ export default {
           this.posts.splice(i, 1);
         });
     },
-    getDeleteUser() {
-      axios
+    async getDeleteUser() {
+      await axios
         .get("http://localhost:3000/api/users", {
           headers: {
             Authorization: "Bearer " + this.token,
