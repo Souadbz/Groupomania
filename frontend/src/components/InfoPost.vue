@@ -1,5 +1,6 @@
 <template>
   <div v-if="user.isAdmin || userId">
+    <AddPost @postResponse="getPosts()" />
     <!-- On récupére les posts des plus récents aux plus anciens -->
     <div class="card" :key="post.id" v-for="post in posts.slice().reverse()">
       <div
@@ -95,7 +96,7 @@
           </div>
         </div>
 
-        <CreateComment v-bind="post" @postCommentResponse="getComments" />
+        <CreateComment v-bind="post" @postCommentResponse="getComments()" />
       </div>
     </div>
   </div>
@@ -104,10 +105,12 @@
 <script>
 import axios from "axios";
 import CreateComment from "../components/CreateComment.vue";
+import AddPost from "../components/AddPost.vue";
 export default {
   name: "infoPost",
   components: {
     CreateComment,
+    AddPost,
   },
   data() {
     return {
@@ -226,6 +229,23 @@ export default {
         .then((response) => {
           this.comments = response.data;
           console.log(this.comments);
+        })
+        .catch(function(error) {
+          alert(error);
+          console.log(error);
+        });
+    },
+    getPosts() {
+      axios
+        .get("http://localhost:3000/api/posts", {
+          headers: {
+            Authorization: "Bearer " + this.token,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          this.posts = response.data.posts;
+          console.log(this.posts);
         })
         .catch(function(error) {
           alert(error);

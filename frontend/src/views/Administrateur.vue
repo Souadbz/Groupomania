@@ -17,7 +17,10 @@
               :key="user.id"
               v-for="user in users"
             >
-              <ProfilesList v-bind="user" />
+              <ProfilesList
+                v-bind="user"
+                @deleteProfileUser="getDeleteUser()"
+              />
             </div>
           </div>
           <h2 class="card-title-profiles">
@@ -140,6 +143,22 @@ export default {
         .then(() => {
           let i = this.posts.map((data) => data.id).indexOf(id);
           this.posts.splice(i, 1);
+        });
+    },
+    getDeleteUser() {
+      axios
+        .get("http://localhost:3000/api/users", {
+          headers: {
+            Authorization: "Bearer " + this.token,
+          },
+        })
+        .then((response) => {
+          this.users = response.data.users;
+          console.log(this.users);
+        })
+        .catch(function(error) {
+          alert(error);
+          console.log(error);
         });
     },
   },

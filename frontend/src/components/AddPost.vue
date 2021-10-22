@@ -96,15 +96,12 @@ export default {
               Authorization: "Bearer " + this.token,
             },
           })
-
-          .then((response) => {
-            /*** Si réponse ok, actualisation de la page pour affichage le dernier post **/
-            if (response) {
-              console.log(response.data);
-              window.location.reload();
-            }
+          .then(() => {
+            this.$emit("postResponse");
           })
           .catch((error) => (this.msgError = error));
+        this.image = "";
+        this.content = "";
       }
     },
   },
