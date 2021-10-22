@@ -2,7 +2,6 @@
   <div>
     <NavApp />
     <h1 class="card-titlepost">partagez vos intérêts avec votre communauté</h1>
-    <AddPost />
     <InfoPost />
     <Footer />
   </div>
@@ -11,14 +10,12 @@
 <script>
 import NavApp from "../components/NavApp.vue";
 import Footer from "../components/Footer";
-import AddPost from "../components/AddPost.vue";
 import InfoPost from "../components/InfoPost.vue";
 
 export default {
   name: "Posts",
   components: {
     NavApp,
-    AddPost,
     InfoPost,
     Footer,
   },
