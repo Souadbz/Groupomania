@@ -23,7 +23,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - Pour installer `Express.js`, exécutez la commande : `npm install --save express`
 - pour le téléchargement de fichiers, installez le package `Multer` : `npm install --save multer`
 - Lancez les commandes: `npm i fs`, `npm install body-parser`
-- **Configuration de la base de données :**
+  **Configuration de la base de données :**
 - Installez `mysql2`: `npm install mysql2`
 - Pour installer `Sequelize` et `Sequelize CLI`, exécutez les commandes: `npm install sequelize`, `npm install --save sequelize-cli` puis ` npx sequelize init`. Cela créera les dossiers `config`, `models` et `migrations`.
   Le dossier `config` contient le fichier de configuration, qui indique à sequelize comment se connecter à la base de données. Vous devez remplir ce fichier comme suit:
@@ -40,7 +40,9 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 
 -Une fois que vous avez correctement configuré le fichier de configuration, créez les modèles `User`, `Post` et `Comment` comme suit :
 `npx sequelize model:generate --name User --attributes "firstName:string,lastName:string,email:string,password:string,imageUrl:string,isAdmin:boolean"` ,
+
 `npx sequelize model:generate --name Post --attributes "userId:integer,imageUrl:string,content:string"`,
+
 `npx sequelize model:generate --name Comment --attributes "userId:integer,postId:integer,imageUrl:string,content:string"`
 
 - Jusqu'à cette étape, nous n'avons rien inséré dans la base de données. Maintenant, pour créer réellement une base de données et ses tables, vous devez :
