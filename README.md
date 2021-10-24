@@ -23,7 +23,9 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - Pour installer `Express.js`, exécutez la commande : `npm install --save express`
 - pour le téléchargement de fichiers, installez le package `Multer` : `npm install --save multer`
 - Lancez les commandes: `npm i fs`, `npm install body-parser`
-  **Configuration de la base de données :**
+
+**Configuration de la base de données :**
+
 - Installez `mysql2`: `npm install mysql2`
 - Pour installer `Sequelize` et `Sequelize CLI`, exécutez les commandes: `npm install sequelize`, `npm install --save sequelize-cli` puis ` npx sequelize init`. Cela créera les dossiers `config`, `models` et `migrations`.
   Le dossier `config` contient le fichier de configuration, qui indique à sequelize comment se connecter à la base de données. Vous devez remplir ce fichier comme suit:
@@ -74,6 +76,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
       `ALTER TABLE Comments ADD CONSTRAINT fk_comment_user_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELECASCADE ON UPDATE CASCADE;`
 
 **Indication:**
+
 Avant d'accéder à l'application, vous devrez installer `dotenv`: `npm install dotenv` et créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend. Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
 
 DB_USERNAME='Nom de L'utilisateur de la base de données MySQL'
@@ -86,7 +89,17 @@ DB_Name='nom de la base de données MySQL'
 
 SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 
-**Pour la sécurité de l'application**, installez: `npm install --save bcrypt`, `npm install --save jsonwebtoken`, `npm install --save express-rate-limit`, `npm install password-validator `, `npm install helmet --save `
+**Pour la sécurité de l'application**, installez:
+
+`npm install --save bcrypt`,
+
+`npm install --save jsonwebtoken`,
+
+`npm install --save express-rate-limit`,
+
+`npm install password-validator `,
+
+`npm install helmet --save `
 
 - lancez le serveur: `nodemon server`
 - Exécution de l’api sur http://localhost:3000
