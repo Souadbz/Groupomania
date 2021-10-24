@@ -3,7 +3,7 @@
 ## Scénario
 
 Je suis développeuse depuis plus d'un an chez CONNECT-E, une petite agence web regroupant une douzaine d'employés.
-Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour célébrer une bonne nouvelle ! Elle vient de signer un contrat pour un nouveau projet ambitieux !
+Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour célébrer une bonne nouvelle! Elle vient de signer un contrat pour un nouveau projet ambitieux !
 Le client en question est `Groupomania`, un groupe spécialisé dans la grande distribution et l'un des plus fidèles clients de l'agence.
 Ma mission consiste à construire un réseau social interne pour les employés de `Groupomania` (développer les parties frontend et backend).
 
@@ -46,15 +46,16 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - Jusqu'à cette étape, nous n'avons rien inséré dans la base de données. Maintenant, pour créer réellement une base de données et ses tables, vous devez :
 
   - Ouvrir un autre terminal, connectez-vous à votre serveur MySQL(si vous n'avez pas encore installé MySQL sur votre machine je vous conseille de visiter ce lien https://openclassrooms.com/fr/courses/1959476-administrez-vos-bases-de-donnees-avec-mysql/1959969-installez-mysql)
-  - Pour créer une base de données dans MySQL, vous avez **deux possibilités** : - Première possibilité: Importez le fichier `initialization_database.sql` en procédant comme suit:
-    `SOURCE (chemin vers le fichier initialization_database.sql);`
+  - Pour créer une base de données dans MySQL, vous avez **deux possibilités** :
 
-        - Deuxième possibilité: exécutez la commande : `DROP DATABASE IF EXISTS groupomania;` `CREATE DATABASE groupomania CHARACTER SET 'utf8'; `
-        Puis revenez au terminal du dossier `Backend` pour créer les tables avec la commande: `npx sequelize db:migrate`(cette commande permet de Créer au niveau de la base de données des tables appelées Users, Posts et Comments avec toutes les colonnes comme spécifié dans les fichiers de migration.);
-        Et enfin retournez vers le terminal MySQL et procédez comme suit: `CREATE UNIQUE INDEX index-name-email ON Users (email);` `ALTER TABLE Users ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD PRIMARY KEY (id);` `ALTER TABLE Comments ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD CONSTRAINT fk_post_userId FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;` ` ALTER TABLE Comments ADD CONSTRAINT fk_comment_post_id FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE;` `ALTER TABLE Comments ADD CONSTRAINT fk_comment_user_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;`
+    - Première possibilité: Importez le fichier `initialization_database.sql` en procédant comme suit:
+      `SOURCE (chemin vers le fichier initialization_database.sql);`
 
-    **Indication:**
-    Avant d'accéder à l'application, vous devrez installer `dotenv`: `npm install dotenv` et créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend. Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
+    - Deuxième possibilité: exécutez la commande : `DROP DATABASE IF EXISTS groupomania;` `CREATE DATABASE groupomania CHARACTER SET 'utf8'; `
+      Puis revenez au terminal du dossier `Backend` pour créer les tables avec la commande: `npx sequelidb:migrate(cette commande permet de Créer au niveau de la base de données des tables appelées UserPosts et Comments avec toutes les colonnes comme spécifié dans les fichiers de migration.); Et enfin retournez vers le terminal MySQL et procédez comme suit: `CREATE UNIQUE INDEX index-name-emaON Users (email);` `ALTER TABLE Users ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD PRIMARY KEY (id)`ALTER TABLE Comments ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD CONSTRAINT fk_post_userId FOREIGN K(userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;` ` ALTER TABLE Comments ADD CONSTRAIfk_comment_post_id FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE;` `ALTTABLE Comments ADD CONSTRAINT fk_comment_user_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELECASCADE ON UPDATE CASCADE;`
+
+**Indication:**
+Avant d'accéder à l'application, vous devrez installer `dotenv`: `npm install dotenv` et créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend. Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
 
 DB_USERNAME='Nom de L'utilisateur de la base de données MySQL'
 
