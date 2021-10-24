@@ -23,14 +23,19 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 - Pour installer `Express.js`, exécutez la commande : `npm install --save express`
 - pour le téléchargement de fichiers, installez le package `Multer` : `npm install --save multer`
 - Lancez les commandes: `npm i fs`, `npm install body-parser`
-- **Configuration de la base de données**:
+- **Configuration de la base de données :**
 - Installez `mysql2`: `npm install mysql2`
 - Pour installer `Sequelize` et `Sequelize CLI`, exécutez les commandes: `npm install sequelize`, `npm install --save sequelize-cli` puis ` npx sequelize init`. Cela créera les dossiers `config`, `models` et `migrations`.
   Le dossier `config` contient le fichier de configuration, qui indique à sequelize comment se connecter à la base de données. Vous devez remplir ce fichier comme suit:
+
   "username": "Nom de L'utilisateur de la base de données MySQL",
+
   "password": "mot de passe de l'utilisateur de la base de données MySQL",
+
   "database": "nom de la base de données MySQL",
+
   "host": "lien de la base de données MySQL",
+
   "dialect": "mysql"
 
 -Une fois que vous avez correctement configuré le fichier de configuration, créez les modèles `User`, `Post` et `Comment` comme suit :
@@ -42,9 +47,12 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 
   - Ouvrir un autre terminal, connectez-vous à votre serveur MySQL(si vous n'avez pas encore installé MySQL sur votre machine je vous conseille de visiter ce lien https://openclassrooms.com/fr/courses/1959476-administrez-vos-bases-de-donnees-avec-mysql/1959969-installez-mysql)
   - Pour créer une base de données dans MySQL, vous avez **deux possibilités** : - Première possibilité: Importez le fichier `initialization_database.sql` en procédant comme suit:
-    `SOURCE (chemin vers le fichier initialization_database.sql);` - Deuxième possibilité: exécutez la commande : `DROP DATABASE IF EXISTS groupomania;` `CREATE DATABASE groupomania CHARACTER SET 'utf8'; `
-    Puis revenez au terminal du dossier `Backend` pour créer les tables avec la commande: `npx sequelize db:migrate`(cette commande permet de Créer au niveau de la base de données des tables appelées Users, Posts et Comments avec toutes les colonnes comme spécifié dans les fichiers de migration.);
-    Et enfin retournez vers le terminal MySQL et procédez comme suit: `CREATE UNIQUE INDEX index-name-email ON Users (email);` `ALTER TABLE Users ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD PRIMARY KEY (id);` `ALTER TABLE Comments ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD CONSTRAINT fk_post_userId FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;` ` ALTER TABLE Comments ADD CONSTRAINT fk_comment_post_id FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE;` `ALTER TABLE Comments ADD CONSTRAINT fk_comment_user_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;`
+    `SOURCE (chemin vers le fichier initialization_database.sql);`
+
+        - Deuxième possibilité: exécutez la commande : `DROP DATABASE IF EXISTS groupomania;` `CREATE DATABASE groupomania CHARACTER SET 'utf8'; `
+        Puis revenez au terminal du dossier `Backend` pour créer les tables avec la commande: `npx sequelize db:migrate`(cette commande permet de Créer au niveau de la base de données des tables appelées Users, Posts et Comments avec toutes les colonnes comme spécifié dans les fichiers de migration.);
+        Et enfin retournez vers le terminal MySQL et procédez comme suit: `CREATE UNIQUE INDEX index-name-email ON Users (email);` `ALTER TABLE Users ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD PRIMARY KEY (id);` `ALTER TABLE Comments ADD PRIMARY KEY (id);` `ALTER TABLE Posts ADD CONSTRAINT fk_post_userId FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;` ` ALTER TABLE Comments ADD CONSTRAINT fk_comment_post_id FOREIGN KEY (postId) REFERENCES Posts(id) ON DELETE CASCADE ON UPDATE CASCADE;` `ALTER TABLE Comments ADD CONSTRAINT fk_comment_user_id FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE;`
+
     **Indication:**
     Avant d'accéder à l'application, vous devrez installer `dotenv`: `npm install dotenv` et créer un fichier d'environnement nommé `.env` dans le répertoire racine du dossier backend. Dans le fichier `.env`, ajoutez vos variables d'environnement comme ci-dessous :
 
@@ -58,7 +66,8 @@ DB_Name='nom de la base de données MySQL'
 
 SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 
-- **Pour la sécurité de l'application** installez: `npm install --save bcrypt`, `npm install --save jsonwebtoken`, `npm install --save express-rate-limit`, `npm install password-validator `, `npm install helmet --save `
+**Pour la sécurité de l'application**, installez: `npm install --save bcrypt`, `npm install --save jsonwebtoken`, `npm install --save express-rate-limit`, `npm install password-validator `, `npm install helmet --save `
+
 - lancez le serveur: `nodemon server`
 - Exécution de l’api sur http://localhost:3000
 
@@ -72,7 +81,7 @@ SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 ### Installation
 
 - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
-- **Vue CLI**: L'installation sur votre machine se fait en mettant cette ligne dans votre terminal (ou Windows PowerShell si vous êtes sur Windows) : `npm install -g @vue/cli`
+- **Vue CLI** : L'installation sur votre machine se fait en mettant cette ligne dans votre terminal (ou Windows PowerShell si vous êtes sur Windows) : `npm install -g @vue/cli`
 - Installez **Axios** : `npm install axios`
 - Installez **Bootstrap** : `npm install vue bootstrap bootstrap-vue`
 - Lancez la commande `npm run serve`
