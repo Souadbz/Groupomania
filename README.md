@@ -7,6 +7,10 @@ Votre directrice, Stéphanie, invite toute l'agence à prendre un verre pour cé
 Le client en question est `Groupomania`, un groupe spécialisé dans la grande distribution et l'un des plus fidèles clients de l'agence.
 Ma mission consiste à construire un réseau social interne pour les employés de `Groupomania` (développer les parties frontend et backend).
 
+## Dossier Central
+
+Créez un dossier nommé `GROUPOMANIA`. A l'intérieur de ce dossier créez un dossier nommé `Backend`
+
 ## Dossier Backend
 
 - Serveur **Node.js**
@@ -18,13 +22,16 @@ Ma mission consiste à construire un réseau social interne pour les employés d
 
 ### Installation
 
-- Accédez sur https://nodejs.org/en/ pour télécharger puis installer `Node.js`
-- Chargez le package `nodemon` : `npm install -g nodemon`
-- Pour installer `Express.js`, exécutez la commande : `npm install --save express`
-- pour le téléchargement de fichiers, installez le package `Multer` : `npm install --save multer`
-- Lancez les commandes: `npm i fs`, `npm install body-parser`
+- Accédez sur https://nodejs.org/en/ pour télécharger puis installer `Node.js` sur votre machine
+- cd **Backend**:
+  - Chargez le package `nodemon` : `npm install -g nodemon`
+  - Pour installer `Express.js`, exécutez la commande : `npm install --save express`
+  - pour le téléchargement de fichiers, installez le package `Multer` : `npm install --save multer`
+  - Lancez les commandes: `npm i fs`, `npm install body-parser`
 
 **Configuration de la base de données :**
+
+Toujours dans le terminal du dossier `backend`
 
 - Installez `mysql2`: `npm install mysql2`
 - Pour installer `Sequelize` et `Sequelize CLI`, exécutez les commandes: `npm install sequelize`, `npm install --save sequelize-cli` puis ` npx sequelize init`. Cela créera les dossiers `config`, `models` et `migrations`.
@@ -41,6 +48,7 @@ Ma mission consiste à construire un réseau social interne pour les employés d
   "dialect": "mysql"
 
 -Une fois que vous avez correctement configuré le fichier de configuration, créez les modèles `User`, `Post` et `Comment` comme suit :
+
 `npx sequelize model:generate --name User --attributes "firstName:string,lastName:string,email:string,password:string,imageUrl:string,isAdmin:boolean"` ,
 
 `npx sequelize model:generate --name Post --attributes "userId:integer,imageUrl:string,content:string"`,
@@ -113,9 +121,12 @@ SECRET_KEY='clé secrète du token qui doit être difficile à pirater'
 
 ### Installation
 
-- Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
-- **Vue CLI** : L'installation sur votre machine se fait en mettant cette ligne dans votre terminal (ou Windows PowerShell si vous êtes sur Windows) : `npm install -g @vue/cli`
-- Installez **Axios** : `npm install axios`
-- Installez **Bootstrap** : `npm install vue bootstrap bootstrap-vue`
-- Lancez la commande `npm run serve`
+- Ouvrez un terminal dans le dossier central `GROUPOMANIA`:
+  - Installez **Vue CLI** : `npm install -g @vue/cli` (Pour plus d'information je vous conseille de lire la documentation vue-cli https://cli.vuejs.org/guide/ )
+  - Puis créez le projet `vue create frontend`
+  - Puis cd frontend :
+    - Exécuter la commande `npm install` pour installer tous les modules nécessaires au fonctionnement de l'application.
+    - Installez **Axios** : `npm install axios`
+    - Installez **Bootstrap** : `npm install vue bootstrap bootstrap-vue`
+    - Lancez la commande `npm run serve`
 - Le serveur est accessible en local via le port 8080: http://localhost:8080/
